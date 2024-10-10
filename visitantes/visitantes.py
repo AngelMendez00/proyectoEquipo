@@ -1,4 +1,6 @@
 from datetime import datetime
+from empleados.empleado import Empleado
+from visitas.visita import Visita
 
 
 
