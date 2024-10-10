@@ -1,0 +1,2 @@
+class Visita: 
+    pass
