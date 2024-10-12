@@ -19,22 +19,32 @@ class Menu:
 
             opcion=input("Opcion: ")
 
+            
             if opcion == "1":
                 print("\nSeleccionaste registrar empleado\n")
-
-                print("\nSelecciona el tipo de empleado a registrar\n")
-                print("1. Administrador")
-                print("2. Mantenimiento")
-                print("3. Veterinario")
-                print("4. Guia")
+            
+                registrar = 0 
                 
-                registrar=5
-
-                while registrar>=5:
+                while registrar < 1 or registrar >= 5:
+                    print("\nSelecciona el tipo de empleado a registrar\n")
+                    print("1. Administrador")
+                    print("2. Mantenimiento")
+                    print("3. Veterinario")
+                    print("4. Guia")
+                    
                     registrar= int(input("Tipo de empleado a registrar: "))
-                    if registrar >= 5 :
-                        print("\nOpcion no valida vuelva a intentar\n")
-
+                    
+                    if registrar ==1:
+                        rol=Rol.ADMINISTRACION
+                    elif registrar == 2:
+                        rol=Rol.MANTENIMIENTO
+                    elif registrar == 3:
+                        rol=Rol.VETERINARIO
+                    elif registrar == 4:
+                        rol=Rol.GUIA
+                    else:
+                        print("\nOpcion no valida vuelva a intentar\n")                   
+               
                 nombre=input("Ingresa el nombre: ")
                 apellidos=input("Ingresa los apellidos: ")
                 dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
@@ -53,14 +63,7 @@ class Menu:
                 fecha_inicio=date(año_incio, mes_inicio, dia_inico)
                 horario=time(hour=horas_trabajo, minute=minutos_trabajo)
 
-                if registrar ==1:
-                    rol=Rol.ADMINISTRACION
-                elif registrar == 2:
-                    rol=Rol.MANTENIMIENTO
-                elif registrar == 3:
-                    rol=Rol.VETERINARO
-                elif registrar == 4:
-                    rol=Rol.GUIA
+                
 
                 empleado=Empleado(nombre=nombre,
                                         apellidos=apellidos,
