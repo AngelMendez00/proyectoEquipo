@@ -5,6 +5,7 @@ from visitas.visita import Visita
 
 
 class Vistante:
+    id: str
     nombre: str
     apellidos: str
     fecha_nacimiento: datetime
@@ -18,13 +19,15 @@ class Vistante:
                  fecha_nacimiento: datetime, 
                  curp: str, 
                  numero_visitas: int, 
-                 fecha_registro: datetime):
+                 fecha_registro: datetime,
+                 id: str):
         self.nombre = nombre
         self.apellidos = apellidos
         self.fecha_nacimiento = fecha_nacimiento
         self.curp = curp
         self.numero_visitas = numero_visitas
         self.fecha_registro = fecha_registro
+        self.id = id
 
     #def mostrar_info_visitante(self):
         #nombre_completo = f"{self.nombre}{self.apellidos}"

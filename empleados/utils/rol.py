@@ -5,3 +5,5 @@ class Rol(Enum):
     GUIA="Guia"
     MANTENIMIENTO="Mantenimiento"
     ADMINISTRACION="Administracion"
+    DIRECTOR="Director"
+    

@@ -1,19 +1,30 @@
 from empleados.empleado import Empleado
-from veterinario.veterinario import Veterinario
-from mantenimiento.mantenimiento import Mantenimiento
-from administracion.administracion import Administracion
-from guia.guia import Guia
+from visitantes.visitantes import Vistante
+from usuarios.usuario import Usuario
 from typing import List
+from datetime import time
+from datetime import date
+from empleados.utils.rol import Rol
 
 
 class Zoologico:
     lista_empleados:List[Empleado]=[]
-    lista_veterinario:List[Veterinario]=[]
-    lista_guia:List[Guia]=[]
-    lista_mantenimiento:List[Mantenimiento]=[]
-    lista_administracion:List[Administracion]=[]
+    lista_usuario: List[Usuario]=[]
+    lista_visitantes: List[Vistante]=[Vistante]
 
     def __init__(self):
-        pass
+        director=Empleado("Juan", "Gonzalez", date(2003, 10, 16), date(2020, 12, 12), "JUANO777", "JUSP20031016", 2000.00, time(8,30), Rol.DIRECTOR)
+        self.lista_empleados.append(director)
+
+    def registrar_visitante(self, visitante: Vistante):
+        self.lista_visitantes.append(visitante)
+        self.lista_usuario.append(visitante)
+
+    def registrar_empleado(self, empleado: Empleado):
+        self.lista_empleados.append(empleado)
+        self.lista_usuario.append(empleado)
+
+
+
 
             
