@@ -18,6 +18,8 @@ class Menu:
             print("1. Registrar empleado")
             print("2. Registrar visitante")
             print("3. Salir")
+            print("6. Consultar empleados")
+            print("8. Consultar visitantes")
 
             opcion=input("Opcion: ")
 
@@ -100,5 +102,29 @@ class Menu:
             elif opcion == "3":
                 print("\nAdios!!!\n")
                 break
+            elif opcion == "6":
+                print("\nSeleccionaste consultar empleado\n")
+            
+                consultar = 0 
+                
+                while consultar < 1 or consultar >= 5:
+                    print("\nSelecciona el tipo de empleado a consultar\n")
+                    print("1. Administrador")
+                    print("2. Mantenimiento")
+                    print("3. Veterinario")
+                    print("4. Guia")
+                
+                    consultar= int(input("Tipo de empleado a consultar: "))
+
+                    if consultar == 1:
+                        self.zoologico.mostrar_administracion()
+                    elif consultar == 2:
+                        self.zoologico.mostrar_mantenimiento()
+                    elif consultar == 3:
+                        self.zoologico.mostrar_veterinarios()
+                    elif consultar == 4:
+                        self.zoologico.mostrar_guia()
+            elif opcion == "8":
+                self.zoologico.mostrar_visitantes()
             else:
                 print("\nOpcion no valida, intente de nuevo\n")
