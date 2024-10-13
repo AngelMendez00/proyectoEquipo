@@ -1,6 +1,5 @@
 from datetime import date
 from empleados.empleado import Empleado
-from visitas.visita import Visita
 from random import randint
 
 

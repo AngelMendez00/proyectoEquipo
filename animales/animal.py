@@ -27,13 +27,15 @@ class Animal:
         self.vacunas = vacunas
     
     def mostrar_info_animal(self):
-        info = f"""Animal: {self.tipo}
+        info = f"""Animal: {self.tipo.upper()}
                    ID: {self.id} 
                    Fecha de llegada: {self.fecha_llegada}
                    Enfermedades: {self.enfermedades}
                    Tipo de alimentacion: {self.tipo_alimentacion.value}
+                   Frecuencia de alimentacion: {self.frecuencia_alimentacion}
                    Fecha de nacimiento: {self.fecha_nacimiento}
-                   Peso: {self.peso}
+                   Peso: {self.peso} kg
                    Vacunado: {self.vacunas}"""
         return info
         
+ 
