@@ -1,5 +1,6 @@
 from zoologico.zoologico import Zoologico
 from empleados.empleado import Empleado
+from visitantes.visitantes import Visitante
 from usuarios.usuario import Usuario
 from datetime import date
 from datetime import time
@@ -17,9 +18,11 @@ class Menu:
             print("\n---BIENVENIDO---\n")
             print("Selecciona una opcion\n")
             print("1. Registrar empleado")
-            print("2. Registrar visitante")
+            print("2. Registrar visita")
             print("3. Registrar animal")
-            print("4. Salir")
+            print("4. Consultar empleados")
+            print("5. Consultar visitantes")
+            print("6. Salir")
 
             opcion=input("Opcion: ")
 
@@ -81,7 +84,24 @@ class Menu:
                     
                 self.zoologico.registrar_empleado(empleado=empleado)
             
-            
+            elif opcion == "2":
+                print("\nSeleccionaste registrar visitante\n")
+
+                nombre=input("Ingresa el nombre: ")
+                apellidos=input("Ingresa los apellidos: ")
+                dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
+                mes_nacimiento=int(input("Ingresa el mes de nacimiento: "))
+                año_nacimiento=int(input("Ingresa el año de nacimiento: "))
+                curp=input("Ingresa la curp: ")
+                numero_visitas=0
+                fecha_registro=datetime.today()
+
+                fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+
+                visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                
+                self.zoologico.registrar_visitante(visitante=visitante) 
+
             elif opcion == "3":
                 print("\nSeleccionaste registrar un animal\n")
                 tipo = input("Ingresa el tipo/especie de animal: ")
@@ -146,8 +166,31 @@ class Menu:
                 
                 self.zoologico.mostrar_animales()
  
-    
             elif opcion == "4":
+                print("\nSeleccionaste consultar empleado\n")
+            
+                consultar = 0 
+                
+                while consultar < 1 or consultar >= 5:
+                    print("\nSelecciona el tipo de empleado a consultar\n")
+                    print("1. Administrador")
+                    print("2. Mantenimiento")
+                    print("3. Veterinario")
+                    print("4. Guia")
+                
+                    consultar= int(input("Tipo de empleado a consultar: "))
+
+                    if consultar == 1:
+                        self.zoologico.mostrar_administracion()
+                    elif consultar == 2:
+                        self.zoologico.mostrar_mantenimiento()
+                    elif consultar == 3:
+                        self.zoologico.mostrar_veterinarios()
+                    elif consultar == 4:
+                        self.zoologico.mostrar_guia()
+            elif opcion == "5":
+                self.zoologico.mostrar_visitantes()
+            elif opcion == "6":
                 print("\nAdios!!!\n")
                 break
             else:

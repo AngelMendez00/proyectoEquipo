@@ -4,6 +4,7 @@ from visitas.visita import Visita
 from random import randint
 
 
+
 class Visitante:
     id: str
     nombre: str
@@ -35,6 +36,6 @@ class Visitante:
         return id
 
     def mostrar_info_visitante(self):
-        nombre_completo = f"{self.nombre}{self.apellidos}"
+        nombre_completo = f"{self.nombre} {self.apellidos}"
         info = f"\n Nombre completo: {nombre_completo}\n Fecha de nacimiento: {self.fecha_nacimiento}\n Curp: {self.curp}\n Número de visitas: {self.numero_visitas}\n Fecha de registro: {self.fecha_registro}"
         return info

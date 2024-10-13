@@ -24,3 +24,8 @@ class Empleado(Usuario):
         iniciales_nombre=nombre[0:3].upper()
         id=f"{iniciales_nombre}{rol.value}{randint(0,5000)}"
         return id
+    
+    def mostrar_info(self):
+        nombre_completo= f"{self.nombre} {self.apellidos}"
+        info=f"\n-ID: {self.id}\n-Nombre completo: {nombre_completo}\n-Fecha de nacimiento: {self.fecha_nacimiento}\n-Fecha de inicio: {self.fecha_inicio}\n-RFC: {self.rfc}\n-CURP: {self.curp}\n-Salario: {self.salario}"
+        return info
