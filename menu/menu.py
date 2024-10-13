@@ -117,7 +117,7 @@ class Menu:
                         enfermedad = input("Ingresa la enfermedad del animal: ")
                         enfermedades.append(enfermedad)
                         while opcion_enfermedad != 2:
-                            opcion_enfermedad = int(input("1. Agregar enfermedad \n2.Terminar \n: "))
+                            opcion_enfermedad = int(input("Agregar otra enfermedad. \n1. Si \n2. No \n: "))
                             if opcion_enfermedad == 1:
                                 enfermedad = input("Ingresa la enfermedad del animal: ")
                                 enfermedades.append(enfermedad)
