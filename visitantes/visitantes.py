@@ -4,6 +4,7 @@ from visitas.visita import Visita
 from random import randint
 
 
+
 class Visitante:
     id: str
     nombre: str
