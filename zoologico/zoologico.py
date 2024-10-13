@@ -1,5 +1,5 @@
 from empleados.empleado import Empleado
-from visitantes.visitantes import Vistante
+from visitantes.visitantes import Visitante
 from usuarios.usuario import Usuario
 from typing import List
 from datetime import time
@@ -10,16 +10,20 @@ from animales.animal import Animal
 class Zoologico:
     lista_empleados:List[Empleado]=[]
     lista_usuario: List[Usuario]=[]
+<<<<<<< HEAD
     lista_visitantes: List[Vistante]=[Vistante]
     lista_animales: List[Animal]=[Animal]
     
     
+=======
+    lista_visitantes: List[Visitante]=[Visitante]
+>>>>>>> 7ee4a3e6a576fae4064f37aea795c3cbc020fe63
 
     def __init__(self):
         director=Empleado("Juan", "Gonzalez", date(2003, 10, 16), date(2020, 12, 12), "JUANO777", "JUSP20031016", 2000.00, time(8,30), Rol.DIRECTOR)
         self.lista_empleados.append(director)
 
-    def registrar_visitante(self, visitante: Vistante):
+    def registrar_visitante(self, visitante: Visitante):
         self.lista_visitantes.append(visitante)
         self.lista_usuario.append(visitante)
 

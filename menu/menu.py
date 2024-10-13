@@ -3,10 +3,16 @@ from empleados.empleado import Empleado
 from usuarios.usuario import Usuario
 from datetime import date
 from datetime import time
+from datetime import datetime
 from empleados.utils.rol import Rol
+<<<<<<< HEAD
 from animales.animal import Animal
 from typing import List
 from animales.utils.alimentacion import Alimentacion
+=======
+from visitantes.visitantes import Visitante
+
+>>>>>>> 7ee4a3e6a576fae4064f37aea795c3cbc020fe63
 
 class Menu:
     zoologico = Zoologico()
@@ -17,8 +23,12 @@ class Menu:
             print("Selecciona una opcion\n")
             print("1. Registrar empleado")
             print("2. Registrar visitante")
+<<<<<<< HEAD
             print("3. Registrar animal")
             print("4. Salir")
+=======
+            print("3. Salir")
+>>>>>>> 7ee4a3e6a576fae4064f37aea795c3cbc020fe63
 
             opcion=input("Opcion: ")
 
@@ -80,7 +90,28 @@ class Menu:
                     
                 self.zoologico.registrar_empleado(empleado=empleado)
             
+<<<<<<< HEAD
             
+=======
+            elif opcion == "2":
+                print("\nSeleccionaste registrar visitante\n")
+
+                nombre=input("Ingresa el nombre: ")
+                apellidos=input("Ingresa los apellidos: ")
+                dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
+                mes_nacimiento=int(input("Ingresa el mes de nacimiento: "))
+                año_nacimiento=int(input("Ingresa el año de nacimiento: "))
+                curp=input("Ingresa la curp: ")
+                numero_visitas=0
+                fecha_registro=datetime.today()
+
+                fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+
+                visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                
+                self.zoologico.registrar_visitante(visitante=visitante)
+
+>>>>>>> 7ee4a3e6a576fae4064f37aea795c3cbc020fe63
             elif opcion == "3":
                 print("\nSeleccionaste registrar un animal\n")
                 tipo = input("Ingresa el tipo/especie de animal: ")
