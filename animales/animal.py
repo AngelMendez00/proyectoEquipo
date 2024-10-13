@@ -1,5 +1,5 @@
 from datetime import datetime
-from utils.alimentacion import Alimentacion
+from animales.utils.alimentacion import Alimentacion
 from typing import List
 from random import randint
 
@@ -25,17 +25,13 @@ class Animal:
         self.peso = peso
         self.frecuencia_alimentacion = frecuencia_alimentacion
         self.vacunas = vacunas
-
-
-    def generar_id_animal(self, tipo, fecha_llegada, año_nacimiento):
-        id = f"AN{tipo[:2].upper()}{str(fecha_llegada[-2:])}{str(año_nacimiento[:2])}{randint(1,10000)}{datetime.now().day}"
-        return id
     
     def mostrar_info_animal(self):
-        info = f"""Animal: {self.tipo} ID: {self.id} 
+        info = f"""Animal: {self.tipo}
+                   ID: {self.id} 
                    Fecha de llegada: {self.fecha_llegada}
                    Enfermedades: {self.enfermedades}
-                   Tipo de alimentacion: {self.tipo_alimentacion}
+                   Tipo de alimentacion: {self.tipo_alimentacion.value}
                    Fecha de nacimiento: {self.fecha_nacimiento}
                    Peso: {self.peso}
                    Vacunado: {self.vacunas}"""
