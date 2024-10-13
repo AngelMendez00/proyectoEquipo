@@ -15,7 +15,8 @@ class Menu:
             print("Selecciona una opcion\n")
             print("1. Registrar empleado")
             print("2. Registrat visitante")
-            print("3. Salir")
+            print("4. Registrar visita")
+            print("5. Salir")
 
             opcion=input("Opcion: ")
 
@@ -76,8 +77,24 @@ class Menu:
                                         rol=rol)
                     
                 self.zoologico.registrar_empleado(empleado=empleado)
-            
-            elif opcion == "3":
+                
+            elif opcion == "4":
+                print("\n Selecionaste la opción de registrar visita\n")
+                print("\nBoleto adulto: $100.00")
+                print("\nBoleto niño: $50.00")
+
+                #numero_visitas = 0
+                #numero_visitas =+1
+                #precio1 = 100 * adultos
+                #precio2 = 50 * niños
+                #precio_total = precio1 + precio2
+                #descuento = precio_total * 0.20
+                #precio_final = precio_total - descuento
+
+
+                
+
+            elif opcion == "5":
                 print("\nAdios!!!\n")
                 break
             else:
