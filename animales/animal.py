@@ -12,22 +12,23 @@ class Animal:
     tipo_alimentacion: Alimentacion
     fecha_nacimiento: datetime
     peso: float
-    frecuencia_alimentacion: int
+    frecuencia_alimentacion: str
     vacunas: bool
 
-    def __init__(self, tipo:str, fecha_llegada: str, enfermedades: List[str], tipo_alimentacion: Alimentacion, fecha_nacimiento: datetime, peso:float, frecuencia_alimentacion: int, vacunas: bool ):
-        self.id = self.generar_id_animal(tipo=tipo, fecha_llegada=fecha_llegada, fecha_nacimiento=fecha_nacimiento)
+    def __init__(self, id:str, tipo:str, fecha_llegada: str, enfermedades: List[str], tipo_alimentacion: Alimentacion, fecha_nacimiento: datetime, peso:float, frecuencia_alimentacion: str, vacunas: bool ):
+        self.id = id
         self.tipo = tipo
         self.fecha_llegada = fecha_llegada
         self.enfermedades = enfermedades
         self.tipo_alimentacion = tipo_alimentacion
         self.fecha_nacimiento = fecha_nacimiento
         self.peso = peso
+        self.frecuencia_alimentacion = frecuencia_alimentacion
         self.vacunas = vacunas
 
 
-    def generar_id_animal(self, tipo, fecha_llegada, fecha_nacimiento):
-        id = f"AN{tipo[:2].upper()}{str(fecha_llegada[-2:])}{str(fecha_nacimiento[:2])}{randint(1,10000)}{datetime.now().day}"
+    def generar_id_animal(self, tipo, fecha_llegada, año_nacimiento):
+        id = f"AN{tipo[:2].upper()}{str(fecha_llegada[-2:])}{str(año_nacimiento[:2])}{randint(1,10000)}{datetime.now().day}"
         return id
     
     def mostrar_info_animal(self):
