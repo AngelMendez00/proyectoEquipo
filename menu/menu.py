@@ -126,6 +126,28 @@ class Menu:
                 fecha_registro=date.today()
 
                 visita = Visita(guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_registro, cantidad_adultos=adultos,cantidad_niños=niños)
+                
+                self.zoologico.registrar_visitante(visitante=visitante) 
+
+            elif opcion == "3":
+                print("\nSeleccionaste registrar un animal\n")
+                tipo = input("Ingresa el tipo/especie de animal: ")
+                peso = float(input("Ingresa el peso en kg del animal: "))
+                fecha_llegada = date.today()
+                dia_nacimiento = int(input("Ingresa el dia de nacimiento del animal: "))
+                mes_nacimiento = int(input("Ingresa el mes de nacimiento del animal: "))
+                año_nacimiento = int(input("Ingresa el año de nacimiento del animal: "))
+                fecha_nacimiento = date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+                tipo_alimentacion = self.zoologico.capturar_tipo_alimentacion()
+                frecuencia_alimentacion = input("Ingresa la frecuencia de alimentacion del animal: ")
+                enfermedades = self.zoologico.capturar_enfermedades()
+                vacunas = self.zoologico.capturar_vacunas()
+                
+                id = self.zoologico.generar_id_animal(tipo=tipo, fecha_llegada=fecha_llegada, fecha_nacimiento=fecha_nacimiento) 
+    
+                animal = Animal(id=id, tipo=tipo, fecha_llegada=fecha_llegada, enfermedades=enfermedades, tipo_alimentacion=tipo_alimentacion, fecha_nacimiento=fecha_nacimiento, peso=peso, frecuencia_alimentacion=frecuencia_alimentacion, vacunas=vacunas)
+                self.zoologico.registrar_animal(animal=animal)
+                self.zoologico.mostrar_animales()
  
             elif opcion == "4":
                 print("\nSeleccionaste consultar empleado\n")
