@@ -1,15 +1,14 @@
 from zoologico.zoologico import Zoologico
 from empleados.empleado import Empleado
 from visitantes.visitantes import Visitante
-from usuarios.usuario import Usuario
 from datetime import date
 from datetime import time
 from datetime import datetime
 from empleados.utils.rol import Rol
 from animales.animal import Animal
 from typing import List
-from animales.utils.alimentacion import Alimentacion
 from visitas.visita import Visita
+from procesos.proceso import Proceso
 
 class Menu:
     zoologico = Zoologico()
@@ -23,7 +22,8 @@ class Menu:
             print("3. Registrar animal")
             print("4. Consultar empleados")
             print("5. Consultar visitantes")
-            print("6. Salir")
+            print("6. Registrar proceso")
+            print("7. Salir")
 
             opcion=input("Opcion: ")
 
@@ -185,7 +185,41 @@ class Menu:
                         print("Opcion no valida. Intente de nuevo")
             elif opcion == "5":
                 self.zoologico.mostrar_visitantes()
+                
             elif opcion == "6":
+                print("*** Registrar proceso ***")
+                
+                tipo_proceso = self.zoologico.seleccion_tipo_proceso()
+                self.zoologico.mostrar_mantenimiento_disponible()
+                if self.zoologico.mostrar_mantenimiento_disponible() == True:
+                    id_encargado = input("Ingresa el ID del empleado a encargarse: ")
+                    empleado_encargado = self.zoologico.validar_id_encargado(id_encargado=id_encargado)
+                    
+                    while empleado_encargado == None:
+                        print("No se ha podido registrar el guia, intenta de nuevo")
+                        id_encargado = input("Ingresa el ID del empleado a encargarse: ")
+                        empleado_encargado = self.zoologico.validar_id_encargado(id_encargado=id_encargado)
+                else:
+                    continue
+                
+                self.zoologico.mostrar_animales()
+                if self.zoologico.mostrar_animales() == True:
+                    id_animal = input("\nIngresa el ID del animal para realizar mantenimiento: ").upper()
+                    id_animal = self.zoologico.validar_id_animal(id_animal=id_animal)
+                    while id_animal == None:
+                        print("No se ha podido registrar el animal, intenta de nuevo")
+                        id_animal = input("\nIngresa el ID del animal para realizar mantenimiento: ").upper()
+                        id_animal = self.zoologico.validar_id_animal(id_animal=id_animal)
+                else:
+                    continue
+                
+                observaciones = self.zoologico.observaciones()
+                fecha_proceso = date.today()
+                proceso = Proceso(empleado_encargado=empleado_encargado, tipo_proceso=tipo_proceso, observaciones=observaciones, fecha_proceso=fecha_proceso, id_animal=id_animal)
+                self.zoologico.registrar_proceso(proceso=proceso)
+  
+            
+            elif opcion == "7":
                 print("\nAdios!!!\n")
                 break
             else:
