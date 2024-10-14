@@ -9,6 +9,7 @@ from empleados.utils.rol import Rol
 from animales.animal import Animal
 from typing import List
 from animales.utils.alimentacion import Alimentacion
+from visitas.visita import Visita
 
 class Menu:
     zoologico = Zoologico()
@@ -85,42 +86,46 @@ class Menu:
                 self.zoologico.registrar_empleado(empleado=empleado)
             
             elif opcion == "2":
-                print("\nSeleccionaste registrar visitante\n")
+                visitantes=[]
+                print("\n Selecionaste la opción de registrar visita\n")
+                print("\nBoleto adulto: $100.00")
+                print("\nBoleto niño: $50.00")
+                id_guia = input("\nIngresa el ID del guia: ")
 
-                nombre=input("Ingresa el nombre: ")
-                apellidos=input("Ingresa los apellidos: ")
-                dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
-                mes_nacimiento=int(input("Ingresa el mes de nacimiento: "))
-                año_nacimiento=int(input("Ingresa el año de nacimiento: "))
-                curp=input("Ingresa la curp: ")
-                numero_visitas=0
-                fecha_registro=datetime.today()
-
-                fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
-
-                visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                cantidad_visitantes = int(input("\n¿Cuantos visitantes desea registrar: "))
                 
-                self.zoologico.registrar_visitante(visitante=visitante) 
+                while cantidad_visitantes > 0:
 
-            elif opcion == "3":
-                print("\nSeleccionaste registrar un animal\n")
-                tipo = input("Ingresa el tipo/especie de animal: ")
-                peso = float(input("Ingresa el peso en kg del animal: "))
-                fecha_llegada = date.today()
-                dia_nacimiento = int(input("Ingresa el dia de nacimiento del animal: "))
-                mes_nacimiento = int(input("Ingresa el mes de nacimiento del animal: "))
-                año_nacimiento = int(input("Ingresa el año de nacimiento del animal: "))
-                fecha_nacimiento = date(año_nacimiento, mes_nacimiento, dia_nacimiento)
-                tipo_alimentacion = self.zoologico.capturar_tipo_alimentacion()
-                frecuencia_alimentacion = input("Ingresa la frecuencia de alimentacion del animal: ")
-                enfermedades = self.zoologico.capturar_enfermedades()
-                vacunas = self.zoologico.capturar_vacunas()
-                
-                id = self.zoologico.generar_id_animal(tipo=tipo, fecha_llegada=fecha_llegada, fecha_nacimiento=fecha_nacimiento) 
-    
-                animal = Animal(id=id, tipo=tipo, fecha_llegada=fecha_llegada, enfermedades=enfermedades, tipo_alimentacion=tipo_alimentacion, fecha_nacimiento=fecha_nacimiento, peso=peso, frecuencia_alimentacion=frecuencia_alimentacion, vacunas=vacunas)
-                self.zoologico.registrar_animal(animal=animal)
-                self.zoologico.mostrar_animales()
+                    nuevo = chr(input("\n ¿Eres nuevo visitante? (S/N) "))
+                    if nuevo == "S":
+                        nombre=input("Ingresa el nombre: ")
+                        apellidos=input("Ingresa los apellidos: ")
+                        dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
+                        mes_nacimiento=int(input("Ingresa el mes de nacimiento: "))
+                        año_nacimiento=int(input("Ingresa el año de nacimiento: "))
+                        curp=input("Ingresa la curp: ")
+                        numero_visitas=0
+                        fecha_registro=datetime.today()
+                        fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+                        visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                        visitante.numero_visitas +1
+                        self.zoologico.registrar_visitante(visitante=visitante)
+                        
+                        cantidad_visitantes - 1
+                        visitantes.append(visitante)
+                       
+                    elif nuevo == "N":
+                            
+                        id = input("\n Ingresa tu ID: ")
+                        visitante = self.zoologico.validar_id(id)
+                        cantidad_visitantes -1 
+                        visitantes.append(visitante)
+                                
+                costo_total, adultos, niños = self.zoologico.revision_visitantes(visitantes=visitantes)
+                guia = self.zoologico.validar_id_guia(id_guia=id_guia)
+                fecha_registro=date.today()
+
+                visita = Visita(guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_registro, cantidad_adultos=adultos,cantidad_niños=niños)
  
             elif opcion == "4":
                 print("\nSeleccionaste consultar empleado\n")
