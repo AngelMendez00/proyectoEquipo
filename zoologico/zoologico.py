@@ -129,7 +129,21 @@ class Zoologico:
         for visitantes in self.lista_visitantes:
             print(visitantes.mostrar_info_visitante())
 
-    
+    def mostrar_guia_disponibles(self):
+        disponibilidad = 0
+        print("\n---GUIAS DISPONIBLES---\n")
+        for empleado in self.lista_empleados:
+            if empleado.rol == Rol.GUIA:
+                if empleado.disponible == True:
+                    print(empleado.mostrar_info())
+                    disponibilidad =+ 1
+        if disponibilidad == 0:
+            print("\nNO HAY GUIAS DISPONIBLES\n")
+            return False
+        else:
+            return True
+        
+
     def registrar_visita(self, visita: Visita):
         self.lista_visitas.append(visita)
 
@@ -158,20 +172,24 @@ class Zoologico:
     def validar_id(self, id:str):
         for visitante in self.lista_visitantes:
             if id == visitante.id:
-                visitante.numero_visitas +1
+                visitante.numero_visitas = visitante.numero_visitas + 1
                 return visitante
-            else: 
-                print("ID no encontrada")
+        print("\nID no encontrada")
+        return None
 
     def validar_id_guia(self, id_guia:str):
         for empleado in self.lista_empleados:
             if id_guia == empleado.id:
                 if empleado.rol == Rol.GUIA:
-                    return empleado
-                else: 
-                    print("El empleado no es guia")
+                    if empleado.disponible == True:
+                        empleado.disponible = False
+                        return empleado
+        print("\nID no encontrada o guia no disponible")
+        print("Vuelva a intentarlo")
+        return None
+
          
-        print("ID no encontrada")
+        
 
 
 

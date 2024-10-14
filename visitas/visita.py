@@ -20,7 +20,7 @@ class Visita:
                  fecha_visita: date,
                  cantidad_adultos: int,
                  cantidad_niños: int):
-        self.id = self.generar_id_visita()
+        self.id = self.generar_id_visita(guia_a_cargo=guia_a_cargo)
         self.guia_a_cargo = guia_a_cargo
         self.costo_total = costo_total
         self.visitantes = visitantes
@@ -28,9 +28,11 @@ class Visita:
         self.cantidad_adultos = cantidad_adultos
         self.cantidad_niños = cantidad_niños
 
-    def generar_id_visita (self):
-        nombre = self.guia_a_cargo.nombre
+    def generar_id_visita (self, guia_a_cargo: Empleado):
+        nombre = guia_a_cargo.nombre
         id = f"{nombre[:2].upper()}{randint(0,10000)}"
         return id
 
+    def mostrar_info_visita(self):
+        pass
 

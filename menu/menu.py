@@ -87,16 +87,24 @@ class Menu:
             
             elif opcion == "2":
                 visitantes=[]
-                print("\n Selecionaste la opción de registrar visita\n")
+                guia = None
+                print("\nSelecionaste la opción de registrar visita")
                 print("\nBoleto adulto: $100.00")
                 print("\nBoleto niño: $50.00")
-                id_guia = input("\nIngresa el ID del guia: ")
+                
+                if self.zoologico.mostrar_guia_disponibles() == True:
+                 while guia == None:
+                        id_guia = input("\nIngresa el ID del guia para esta visita: ")
+                        guia = self.zoologico.validar_id_guia(id_guia=id_guia)
+                else:
+                    continue
+                fecha_visita=date.today()
 
-                cantidad_visitantes = int(input("\n¿Cuantos visitantes desea registrar: "))
+                cantidad_visitantes = int(input("\n¿Cuantos visitantes desea registrar?: "))
                 
                 while cantidad_visitantes > 0:
 
-                    nuevo = chr(input("\n ¿Eres nuevo visitante? (S/N) "))
+                    nuevo = input("\n¿Eres nuevo visitante? (S/N): ")
                     if nuevo == "S":
                         nombre=input("Ingresa el nombre: ")
                         apellidos=input("Ingresa los apellidos: ")
@@ -108,26 +116,28 @@ class Menu:
                         fecha_registro=datetime.today()
                         fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
                         visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
-                        visitante.numero_visitas +1
+                        visitante.numero_visitas = visitante.numero_visitas + 1
                         self.zoologico.registrar_visitante(visitante=visitante)
                         
-                        cantidad_visitantes - 1
+                        cantidad_visitantes = cantidad_visitantes - 1
                         visitantes.append(visitante)
                        
                     elif nuevo == "N":
-                            
-                        id = input("\n Ingresa tu ID: ")
-                        visitante = self.zoologico.validar_id(id)
-                        cantidad_visitantes -1 
-                        visitantes.append(visitante)
+                        visitante = None
+                        while visitante == None:   
+                            id = input("\n Ingresa tu ID: ")
+                            visitante = self.zoologico.validar_id(id)
+                            if visitante != None:   
+                                cantidad_visitantes = cantidad_visitantes - 1
+                                visitantes.append(visitante)
                                 
                 costo_total, adultos, niños = self.zoologico.revision_visitantes(visitantes=visitantes)
-                guia = self.zoologico.validar_id_guia(id_guia=id_guia)
-                fecha_registro=date.today()
-
-                visita = Visita(guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_registro, cantidad_adultos=adultos,cantidad_niños=niños)
                 
-                self.zoologico.registrar_visitante(visitante=visitante) 
+                print("\nPrecio total a pagar: ", costo_total)
+
+                visita = Visita(guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_visita, cantidad_adultos=adultos,cantidad_niños=niños)
+                
+                self.zoologico.registrar_visita(visita=visita)
 
             elif opcion == "3":
                 print("\nSeleccionaste registrar un animal\n")
