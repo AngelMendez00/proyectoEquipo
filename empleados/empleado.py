@@ -9,11 +9,11 @@ class Empleado(Usuario):
     fecha_inicio: date
     rfc: str
     salario: float
-    horario: time
+    horario: str
     rol: Rol
     disponible: bool
 
-    def __init__(self, nombre: str, apellidos: str, fecha_nacimiento: date, fecha_inicio: date, rfc: str, curp: str, salario: float, horario: time, rol: Rol):
+    def __init__(self, nombre: str, apellidos: str, fecha_nacimiento: date, fecha_inicio: date, rfc: str, curp: str, salario: float, horario: str, rol: Rol):
         super().__init__(id=self.generar_id(nombre=nombre,rol=rol), nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp)
         self.fecha_inicio = fecha_inicio
         self.rfc = rfc
@@ -29,5 +29,5 @@ class Empleado(Usuario):
     
     def mostrar_info(self):
         nombre_completo= f"{self.nombre} {self.apellidos}"
-        info=f"\n-ID: {self.id}\n-Nombre completo: {nombre_completo}\n-Fecha de nacimiento: {self.fecha_nacimiento}\n-Fecha de inicio: {self.fecha_inicio}\n-RFC: {self.rfc}\n-CURP: {self.curp}\n-Salario: {self.salario}"
+        info=f"\n-ID: {self.id}\n-Nombre completo: {nombre_completo}\n-Fecha de nacimiento: {self.fecha_nacimiento}\n-Fecha de inicio: {self.fecha_inicio}\n-RFC: {self.rfc}\n-CURP: {self.curp}\n-Salario: {self.salario}\n-Horario: {self.horario}"
         return info

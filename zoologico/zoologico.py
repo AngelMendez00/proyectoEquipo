@@ -119,6 +119,11 @@ class Zoologico:
         print("\n--- Procesos realizados ---")
         for proceso in self.lista_procesos:
             print(proceso.mostrar_info_proceso())
+
+    def mostrar_visitas(self):    
+        print("\n--- Visitas realizadas ---")
+        for visita in self.lista_visitas:
+            print(visita.mostrar_info_visita())
            
     def mostrar_veterinarios(self):
         print("\n---VETERINARIOS---\n")
@@ -152,6 +157,13 @@ class Zoologico:
         else:
             return True
     
+    def comprobrar_existencia_empleados(self):
+        if self.lista_empleados==[]:
+            print("\nNO EXISTEN EMPLEADOS\n")
+            return False
+        else:
+            return True
+    
     def mostrar_guia(self):
         print("\n---GUIAS---\n")
         for empleado in self.lista_empleados:
@@ -165,7 +177,7 @@ class Zoologico:
             if empleado.rol == Rol.GUIA:
                 if empleado.disponible == True:
                     print(empleado.mostrar_info())
-                    disponibilidad =+ 1
+                    disponibilidad += 1
         if disponibilidad == 0:
             print("\nNO HAY GUIAS DISPONIBLES\n")
             return False
@@ -186,14 +198,14 @@ class Zoologico:
         niños = 0
         for visitante in visitantes:
             if (datetime.now().year - visitante.fecha_nacimiento.year) < 18:
-                niños=+1
+                niños+=1
                 if visitante.numero_visitas == 6:
                     precio = precio + (50 * 0.8)
                     visitante.numero_visitas = 0
                 else:
                     precio = precio + 50
             else:
-                adultos=+1
+                adultos+=1
                 if visitante.numero_visitas == 6:
                     precio = precio + (100 * 0.8)
                     visitante.numero_visitas = 0
@@ -228,6 +240,14 @@ class Zoologico:
         print("\nID no encontrada o guia no disponible")
         print("Vuelva a intentarlo")
         return None
+    
+    def validar_id_empleado(self, id_empleado:str):
+        for empleado in self.lista_empleados:
+            if id_empleado == empleado.id:
+                return id_empleado
+        print("\nID no encontrada")
+        print("Vuelva a intentarlo")
+        return None
         
     def validar_id_encargado(self, id_encargado:str):
         for empleado in self.lista_empleados:
@@ -242,8 +262,8 @@ class Zoologico:
 
     def verificar_id_y_contraseña(self, id_ingresada: str, contraseña_ingresada: str):
         if contraseña_ingresada == self.director.contraseña and id_ingresada == self.director.id:
-                print("Inicio de sesión correcta")
-                return True
+            print("Inicio de sesión correcta")
+            return True
         return False
     
     def seleccion_tipo_proceso(self):
@@ -268,8 +288,7 @@ class Zoologico:
             else:
                 print("Opcion invalida. Intenta de nuevo")
     
-    def observaciones(self):           
-                    
+    def observaciones(self):                 
         registrar_observaciones = 0
         while registrar_observaciones !=2 :    
             print("Desea ingresar observaciones?")
@@ -284,6 +303,76 @@ class Zoologico:
             else:
                 print("Opcion no valida")
 
+    def modificar_empleado(self, id_empleado):
+        for empleado in self.lista_empleados:
+            if id_empleado == empleado.id:
+                while True:
+                    print("\nSelecciones atributo a modificar: \n")
+                    print("1. Nombre")
+                    print("2. Apellidos")
+                    print("3. Salario")
+                    print("4. RFC")
+                    print("5. CURP")
+                    print("6. Horario")
+                    print("7. Rol")
+                    print("8. Cancelar")
 
+                    opcion=input("\nIngrese una opcion: ")
 
-            
+                    if opcion == "1":
+                        empleado.nombre=input("Ingrese el nuevo nombre: ")
+                    elif opcion == "2":
+                        empleado.apellidos=input("Ingrese los nuevos apellidos: ")
+                    elif opcion == "3":
+                        empleado.salario=float(input("Ingrese el nuevo salairo: "))
+                    elif opcion == "4":
+                        empleado.rfc=input("Ingrese el nuevo RFC: ")
+                    elif opcion == "5":
+                        empleado.curp=input("Ingrese la nueva CURP: ")
+                    elif opcion == "6":
+                        hora_entrada=input("Ingrese la nueva hora de entrada: ")
+                        hora_salida=input("Ingrese la nueva hora de salida: ")
+                        horario=f"{hora_entrada} a {hora_salida}"
+                        empleado.horario=horario
+                    elif opcion == "7":
+                        if empleado.rol == Rol.GUIA:
+                            for visita in self.lista_visitas:
+                                if id_empleado == visita.guia_a_cargo.id:
+                                    print("\nEste guia tiene una visita asociada, no es posible modificar su rol\n")
+                                    return
+                            print("Roles a seleccionar\n")
+                            print("1. Administraion\n2. Mantenimiento\n3. Veterinario\n")
+                            rol_nuevo=input("Selecciones rol: ")
+                            if rol_nuevo=="1":
+                                empleado.rol=Rol.ADMINISTRACION
+                            elif rol_nuevo=="2":
+                                empleado.rol=Rol.MANTENIMIENTO
+                            elif rol_nuevo=="3":
+                                empleado.rol=Rol.VETERINARIO
+                            else:
+                                print("Rol no valido")
+                        else:
+                            for proceso in self.lista_procesos:
+                                if id_empleado == proceso.empleado_encargado.id:
+                                    print("\nEste empleado esta relacionado a un proceso, no es posible modificar su rol\n")
+                                    return
+                            print("Seleccione el nuevo rol: ")
+                            print("1. Administraion\n2. Guia\n3. Veterinario\n4. Mantenimiento")
+                            rol_nuevo=input("Selecciones rol: ")
+                            if rol_nuevo=="1":
+                                empleado.rol=Rol.ADMINISTRACION
+                            elif rol_nuevo=="2":
+                                empleado.rol=Rol.GUIA
+                            elif rol_nuevo=="3":
+                                empleado.rol=Rol.VETERINARIO
+                            elif rol_nuevo=="4":
+                                empleado.rol=Rol.MANTENIMIENTO
+                            else:
+                                print("Rol no valido")
+                    elif opcion=="8":
+                        break
+                    else:
+                        print("\nOpcion no valida\n")
+                return
+                
+                            

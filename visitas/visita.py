@@ -34,5 +34,13 @@ class Visita:
         return id
 
     def mostrar_info_visita(self):
-        pass
-
+        info = f"""
+                ID de visita: {self.id}
+                ID del guia a cargo: {self.guia_a_cargo.id} 
+                Nombre de guia a cargo: {self.guia_a_cargo.nombre}
+                Fecha de realizacion de la visita: {self.fecha_visita}
+                Costo total de visita: {self.costo_total}
+                Cantidad de adultos: {self.cantidad_adultos}
+                Cantidad de niños: {self.cantidad_niños}
+                """
+        return info

@@ -43,7 +43,10 @@ class Menu:
             print("4. Consultar empleados")
             print("5. Consultar visitantes")
             print("6. Registrar proceso")
-            print("7. Salir")
+
+            print("9. Modificar empleado")
+            print("10. Salir")
+            print("11. Mostrar visita")
 
             opcion=input("Opcion: ")
 
@@ -84,14 +87,12 @@ class Menu:
                 curp=input("Ingresa la curp: ")
                 rfc=input("Ingresa RFC: ")
                 salario=float(input("Ingresa el salario: "))
-                horas_trabajo=int(input("Ingresa hora: "))
-                minutos_trabajo=int(input("Ingresa minutos: "))
+                hora_entrada=input("Ingrese la hora de entrada: ")
+                hora_salida=input("Ingrese la hora de salida: ")
 
                 fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
                 fecha_inicio=date(año_incio, mes_inicio, dia_inico)
-                horario=time(hour=horas_trabajo, minute=minutos_trabajo)
-
-                
+                horario=f"{hora_entrada} a {hora_salida}"
 
                 empleado=Empleado(nombre=nombre,
                                         apellidos=apellidos,
@@ -113,7 +114,7 @@ class Menu:
                 print("\nBoleto niño: $50.00")
                 
                 if self.zoologico.mostrar_guia_disponibles() == True:
-                 while guia == None:
+                    while guia == None:
                         id_guia = input("\nIngresa el ID del guia para esta visita: ")
                         guia = self.zoologico.validar_id_guia(id_guia=id_guia)
                 else:
@@ -238,9 +239,30 @@ class Menu:
                 proceso = Proceso(empleado_encargado=empleado_encargado, tipo_proceso=tipo_proceso, observaciones=observaciones, fecha_proceso=fecha_proceso, id_animal=id_animal)
                 self.zoologico.registrar_proceso(proceso=proceso)
   
-            
-            elif opcion == "7":
+            elif opcion == "9":
+                id=None
+                print("\nSeleccionaste modifcar empleado\n")
+
+                if self.zoologico.comprobrar_existencia_empleados() == True:
+
+                    print("Lista de empleados registrados: \n")
+                    self.zoologico.mostrar_administracion()
+                    self.zoologico.mostrar_mantenimiento()
+                    self.zoologico.mostrar_veterinarios()
+                    self.zoologico.mostrar_guia()
+
+                    while id==None:
+                        id=input("Ingrese el ID del empleado a modificar: ")
+                        id=self.zoologico.validar_id_empleado(id)
+                else:
+                    continue
+
+                self.zoologico.modificar_empleado(id_empleado=id)
+
+            elif opcion == "10":
                 print("\nAdios!!!\n")
                 break
+            elif opcion == "11":
+                self.zoologico.mostrar_visitas()
             else:
                 print("\nOpcion no valida, intente de nuevo\n")
