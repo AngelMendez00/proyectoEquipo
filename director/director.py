@@ -4,8 +4,8 @@ from datetime import datetime
 class Director(Usuario):
     contraseña: str
 
-    def __init__(self, nombre: str, apellidos: str, fecha_nacimiento: datetime, curp: str, contraseña: str):
-          super().__init__(
+    def __init__(self, id:str, nombre: str, apellidos: str, fecha_nacimiento: datetime, curp: str, contraseña: str):
+          super().__init__(id=id,
                nombre=nombre,
                apellidos=apellidos,
                fecha_nacimiento=fecha_nacimiento,
