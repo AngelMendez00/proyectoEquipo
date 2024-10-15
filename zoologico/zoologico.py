@@ -21,7 +21,7 @@ class Zoologico:
     lista_visitantes: List[Visitante]=[]
     lista_visitas: List[Visita]=[]
     lista_procesos: List[Proceso]=[]
-    director:Director
+    director: Director
     
 
     def __init__(self):
@@ -241,7 +241,50 @@ class Zoologico:
          
         print("ID no encontrada")
 
-
+    def verificar_id_y_contraseña(self, id_ingresada: str, contraseña_ingresada: str):
+        if contraseña_ingresada == self.director.contraseña and id_ingresada == self.director.id:
+                print("Inicio de sesión correcta")
+                return True
+        return False
+    
+    def seleccion_tipo_proceso(self):
+        opcion_proceso = 0
+                
+        while opcion_proceso <1 or opcion_proceso >= 4:
+            
+            print("1. Mantenimiento")
+            print("2. Alimentacion")
+            print("3. Limpieza")
+            opcion_proceso = int(input("Selecciona el tipo de proceso a registrar: "))
+            
+            if opcion_proceso == 1:
+                tipo_proceso = TiposProcesos.MANTENIMIENTO
+                return tipo_proceso
+            elif opcion_proceso == 2:
+                tipo_proceso = TiposProcesos.ALIMENTACION
+                return tipo_proceso
+            elif opcion_proceso == 3:
+                tipo_proceso = TiposProcesos.LIMPIEZA
+                return tipo_proceso
+            else:
+                print("Opcion invalida. Intenta de nuevo")
+    
+    def observaciones(self):           
+                    
+        registrar_observaciones = 0
+        while registrar_observaciones !=2 :    
+            print("Desea ingresar observaciones?")
+            print("\n1. Si \n2. No")
+            registrar_observaciones = int(input(": "))
+            if registrar_observaciones == 1:
+                observaciones = input("Escribe tus observaciones: ")
+                return observaciones
+            elif registrar_observaciones == 2:
+                observaciones = None
+                return observaciones
+            else:
+                print("Opcion no valida")    
+    
     def seleccion_tipo_proceso(self):
         opcion_proceso = 0
                 
