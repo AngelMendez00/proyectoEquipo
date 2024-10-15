@@ -1,5 +1,6 @@
 from zoologico.zoologico import Zoologico
 from empleados.empleado import Empleado
+from director.director import Director
 from visitantes.visitantes import Visitante
 from usuarios.usuario import Usuario
 from datetime import date
@@ -13,6 +14,26 @@ from animales.utils.alimentacion import Alimentacion
 class Menu:
     zoologico = Zoologico()
     
+    def login(self, director: Director):
+        intentos= 0
+        while intentos < 3:
+            print("Binvenido al Zoologico de Morelia")
+            print("Inicia sesión para continuar")
+            id_ingresada = input("Ingrese su ID: ")
+            contraseña_ingresada= input("Ingrese su contraseña: ")
+            if contraseña_ingresada == director.contraseña and id_ingresada== director.id:
+                print("Inicio de sesión correcta")
+                self.mostrar_menu()
+            else:
+                intentos = self.mostrar_intento_sesion_fallido(intentos_usuario=intentos)
+
+        print("Máximos intentos de inicio de sesión alcanzados. Adiós")
+        
+    def mostrar_intento_sesion_fallido(self, intentos_usuario):
+        print("\nContraseña incorrecta. Intenta de nuevo")
+        return intentos_usuario + 1
+    
+
     def mostrar_menu(self):
         while True:
             print("\n---BIENVENIDO---\n")

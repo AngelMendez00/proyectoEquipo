@@ -8,6 +8,7 @@ from datetime import time
 from datetime import date
 from empleados.utils.rol import Rol
 from animales.animal import Animal
+from director.director import Director
 from random import randint
 
 class Zoologico:
@@ -16,11 +17,13 @@ class Zoologico:
     lista_animales: List[Animal]=[]
     lista_visitantes: List[Visitante]=[]
     lista_visitas: List[Visita]=[]
+    director:Director
     
 
     def __init__(self):
-        director=Empleado("Juan", "Gonzalez", date(2003, 10, 16), date(2020, 12, 12), "JUANO777", "JUSP20031016", 2000.00, time(8,30), Rol.DIRECTOR)
-        self.lista_empleados.append(director)
+        director=Director(id="NACO777", nombre="Vangelis", apellidos="Contreras", fecha_nacimiento=date(2004, 1, 23), curp="VCOM0104123HMNNLLA1", contraseña="105")
+        self.director=director
+        self.lista_usuario.append(director)
 
     def registrar_visitante(self, visitante: Visitante):
         self.lista_visitantes.append(visitante)
@@ -115,6 +118,8 @@ class Zoologico:
          
         print("ID no encontrada")
 
+
+    
 
 
 
