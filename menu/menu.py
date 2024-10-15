@@ -49,7 +49,9 @@ class Menu:
             print("10. Modificar empleado")
             print("11. Modificar visitantes")
             print("12. Eliminar animales")
-            print("13. Salir")
+            print("13. Eliminar empleados")
+            print("13. Eliminar visitantes")
+            print("15. Salir")
             
             opcion=input("Opcion: ")
 
