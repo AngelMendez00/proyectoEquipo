@@ -8,6 +8,7 @@ from datetime import time
 from datetime import date
 from empleados.utils.rol import Rol
 from animales.animal import Animal
+from director.director import Director
 from random import randint
 from animales.utils.alimentacion import Alimentacion
 from procesos.proceso import Proceso
@@ -20,10 +21,13 @@ class Zoologico:
     lista_visitantes: List[Visitante]=[]
     lista_visitas: List[Visita]=[]
     lista_procesos: List[Proceso]=[]
+    director: Director
+    
 
     def __init__(self):
-        director=Empleado("Juan", "Gonzalez", date(2003, 10, 16), date(2020, 12, 12), "JUANO777", "JUSP20031016", 2000.00, time(8,30), Rol.DIRECTOR)
-        self.lista_empleados.append(director)
+        director=Director(id="NACO777", nombre="Vangelis", apellidos="Contreras", fecha_nacimiento=date(2004, 1, 23), curp="VCOM0104123HMNNLLA1", contraseña="105")
+        self.director=director
+        self.lista_usuario.append(director)
 
     def registrar_visitante(self, visitante: Visitante):
         self.lista_visitantes.append(visitante)
@@ -235,8 +239,13 @@ class Zoologico:
                     print("El empleado no es de mantenimiento")
          
         print("ID no encontrada")
-        return None
 
+    def verificar_id_y_contraseña(self, id_ingresada: str, contraseña_ingresada: str):
+        if contraseña_ingresada == self.director.contraseña and id_ingresada == self.director.id:
+                print("Inicio de sesión correcta")
+                return True
+        return False
+    
     def seleccion_tipo_proceso(self):
         opcion_proceso = 0
                 

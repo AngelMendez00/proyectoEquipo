@@ -1,5 +1,6 @@
 from zoologico.zoologico import Zoologico
 from empleados.empleado import Empleado
+from director.director import Director
 from visitantes.visitantes import Visitante
 from datetime import date
 from datetime import time
@@ -12,6 +13,25 @@ from procesos.proceso import Proceso
 
 class Menu:
     zoologico = Zoologico()
+    
+    def login(self):
+        intentos= 0
+        print("\n---Binvenido al Zoologico de Morelia---\n")
+        while intentos < 3:
+            print("Inicia sesión para continuar\n")
+            id_ingresada = input("Ingrese su ID: ").upper()
+            contraseña_ingresada= input("Ingrese su contraseña: ")
+            if self.zoologico.verificar_id_y_contraseña(id_ingresada=id_ingresada, contraseña_ingresada=contraseña_ingresada) == True:
+                print("Inicio de sesión correcto")
+                self.mostrar_menu()
+            else:
+                intentos = self.mostrar_intento_sesion_fallido(intentos_usuario=intentos)
+
+        print("Máximos intentos de inicio de sesión alcanzados. Adiós\n")
+        
+    def mostrar_intento_sesion_fallido(self, intentos_usuario):
+        print("\nContraseña incorrecta. Intenta de nuevo\n")
+        return intentos_usuario + 1
     
     def mostrar_menu(self):
         while True:
@@ -104,7 +124,7 @@ class Menu:
                 
                 while cantidad_visitantes > 0:
 
-                    nuevo = input("\n¿Eres nuevo visitante? (S/N): ")
+                    nuevo = input("\n¿Eres nuevo visitante? (S/N): ").upper()
                     if nuevo == "S":
                         nombre=input("Ingresa el nombre: ")
                         apellidos=input("Ingresa los apellidos: ")
