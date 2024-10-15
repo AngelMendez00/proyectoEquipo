@@ -102,9 +102,10 @@ class Zoologico:
     
     def mostrar_animales(self):
         print("\n*** ANIMALES EN EL ZOOLOGICO ***")
+        cantidad_animales = 0
         for animal in self.lista_animales: 
-            print(animal.mostrar_info_animal())
             cantidad_animales =+ 1
+            print(animal.mostrar_info_animal())
         if cantidad_animales == 0:
             print("NO HAY ANIMALES A MOSTRAR")
             return False
@@ -327,29 +328,58 @@ class Zoologico:
         for animal in self.lista_animales:
             if id_modificar == animal.id:
                 
-                opcion=0
-                while opcion <1 or opcion >=8:
-                    print("\n1. Tipo de animal \n2. Enfermedades \n3. Tipo de alimentacion \n4. Fecha de nacimiento \n5. Peso \n6. Frecuencia de alimentacion \n7. Vacunas con las que cuenta") 
+                while True:
+                    print("\n1. Tipo de animal \n2. Enfermedades \n3. Tipo de alimentacion \n4. Fecha de nacimiento \n5. Peso \n6. Frecuencia de alimentacion \n7. Vacunas con las que cuenta \n8. Salir") 
                     opcion = int(input("Ingresa la opcion de lo que desees modificar [No se permite modificar el ID o fecha de llegada (registro) del animal]: "))
                     if opcion == 1:
                         animal.tipo = input("Ingresa el nuevo tipo/especie de animal: ")
+                        print("Modificacion realizada con exito")
+                        
                     elif opcion == 2:
                         animal.enfermedades = self.capturar_enfermedades()
+                        print("Modificacion realizada con exito")
+                        
                     elif opcion == 3:
                         animal.tipo_alimentacion = self.capturar_tipo_alimentacion()
+                        print("Modificacion realizada con exito")
+                        
                     elif opcion == 4:
                         dia_nacimiento = int(input("Ingresa el dia de nacimiento del animal: "))
                         mes_nacimiento = int(input("Ingresa el mes de nacimiento del animal: "))
                         año_nacimiento = int(input("Ingresa el año de nacimiento del animal: "))
                         animal.fecha_nacimiento = datetime.date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+                        print("Modificacion realizada con exito")
+
                     elif opcion == 5:
                         animal.peso = float(input("Ingresa el peso en kg del animal: "))
+                        print("Modificacion realizada con exito")
+                    
                     elif opcion == 6:
                         animal.frecuencia_alimentacion = input("Ingresa la frecuencia de alimentacion del animal: ")
+                        print("Modificacion realizada con exito")
+                       
                     elif opcion == 7:
                         animal.vacunas = self.capturar_vacunas()
+                        print("Modificacion realizada con exito")
+                    elif opcion == 8:
+                        print("Saliste de modificaciones de animal")
+                        break
                     else:
                         print("Opcion no valida. Intente de nuevo")
-            else:
-                print("ID no encontrado")
- 
+                return       
+        print("ID no encontrado")
+        
+                
+    def eliminar_animal(self, id_eliminar: str):
+    
+        for animal in self.lista_animales:
+            if animal.id == id_eliminar:
+                for proceso in self.lista_procesos:
+                    if proceso.id_animal == animal.id:
+                        print("No se puede eliminar el animal debido a que está asociado con un proceso")
+                        break
+                self.lista_animales.remove(animal)
+                print("Animal eliminado con éxito")
+                return
+        print("No se ha encontrado el ID del animal")
+        

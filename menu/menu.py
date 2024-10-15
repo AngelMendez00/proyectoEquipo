@@ -46,7 +46,8 @@ class Menu:
             print("7. Consultar animales")
             print("8. Consultar proceso")
             print("9. Modificar animales")
-            print("10. Salir")
+            print("10. Eliminar animales")
+            print("11. Salir")
 
             opcion=input("Opcion: ")
 
@@ -244,15 +245,23 @@ class Menu:
                         
             elif opcion == "7":
                 self.zoologico.mostrar_animales()
+                
             elif opcion =="8":
                 self.zoologico.mostrar_procesos()
+                
             elif opcion == "9":
                 print("*** MODIFICAR ANIMALES ***")
                 self.zoologico.mostrar_animales()
                 id_modificar = input("Ingresa el ID del animal a modificar: ")
                 self.zoologico.modificar_animal(id_modificar=id_modificar)
             
-            elif opcion == "10":
+            elif opcion =="10":
+                print("*** ELIMINAR ANIMALES ***")
+                self.zoologico.mostrar_animales()
+                id_eliminar = input("Ingresa el ID del animal a eliminar: ")
+                self.zoologico.eliminar_animal(id_eliminar=id_eliminar)
+            
+            elif opcion == "11":
                 print("\nAdios!!!\n")
                 break
             else:
