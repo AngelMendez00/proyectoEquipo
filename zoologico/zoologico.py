@@ -377,7 +377,7 @@ class Zoologico:
                 for proceso in self.lista_procesos:
                     if proceso.id_animal == animal.id:
                         print("No se puede eliminar el animal debido a que está asociado con un proceso")
-                        break
+                        return
                 self.lista_animales.remove(animal)
                 print("Animal eliminado con éxito")
                 return
