@@ -2,14 +2,14 @@ from zoologico.zoologico import Zoologico
 from empleados.empleado import Empleado
 from director.director import Director
 from visitantes.visitantes import Visitante
-from usuarios.usuario import Usuario
 from datetime import date
 from datetime import time
 from datetime import datetime
 from empleados.utils.rol import Rol
 from animales.animal import Animal
 from typing import List
-from animales.utils.alimentacion import Alimentacion
+from visitas.visita import Visita
+from procesos.proceso import Proceso
 
 class Menu:
     zoologico = Zoologico()
@@ -43,7 +43,8 @@ class Menu:
             print("3. Registrar animal")
             print("4. Consultar empleados")
             print("5. Consultar visitantes")
-            print("6. Salir")
+            print("6. Registrar proceso")
+            print("7. Salir")
 
             opcion=input("Opcion: ")
 
@@ -106,22 +107,58 @@ class Menu:
                 self.zoologico.registrar_empleado(empleado=empleado)
             
             elif opcion == "2":
-                print("\nSeleccionaste registrar visitante\n")
-
-                nombre=input("Ingresa el nombre: ")
-                apellidos=input("Ingresa los apellidos: ")
-                dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
-                mes_nacimiento=int(input("Ingresa el mes de nacimiento: "))
-                año_nacimiento=int(input("Ingresa el año de nacimiento: "))
-                curp=input("Ingresa la curp: ")
-                numero_visitas=0
-                fecha_registro=datetime.today()
-
-                fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
-
-                visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                visitantes=[]
+                guia = None
+                print("\nSelecionaste la opción de registrar visita")
+                print("\nBoleto adulto: $100.00")
+                print("\nBoleto niño: $50.00")
                 
-                self.zoologico.registrar_visitante(visitante=visitante) 
+                if self.zoologico.mostrar_guia_disponibles() == True:
+                 while guia == None:
+                        id_guia = input("\nIngresa el ID del guia para esta visita: ")
+                        guia = self.zoologico.validar_id_guia(id_guia=id_guia)
+                else:
+                    continue
+                fecha_visita=date.today()
+
+                cantidad_visitantes = int(input("\n¿Cuantos visitantes desea registrar?: "))
+                
+                while cantidad_visitantes > 0:
+
+                    nuevo = input("\n¿Eres nuevo visitante? (S/N): ")
+                    if nuevo == "S":
+                        nombre=input("Ingresa el nombre: ")
+                        apellidos=input("Ingresa los apellidos: ")
+                        dia_nacimiento=int(input("Ingresa el dia de nacimiento: "))
+                        mes_nacimiento=int(input("Ingresa el mes de nacimiento: "))
+                        año_nacimiento=int(input("Ingresa el año de nacimiento: "))
+                        curp=input("Ingresa la curp: ")
+                        numero_visitas=0
+                        fecha_registro=datetime.today()
+                        fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+                        visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                        visitante.numero_visitas = visitante.numero_visitas + 1
+                        self.zoologico.registrar_visitante(visitante=visitante)
+                        
+                        cantidad_visitantes = cantidad_visitantes - 1
+                        visitantes.append(visitante)
+                       
+                    elif nuevo == "N":
+                        visitante = None
+                        while visitante == None:   
+                            id = input("\n Ingresa tu ID: ")
+                            visitante = self.zoologico.validar_id(id)
+                            if visitante != None:   
+                                cantidad_visitantes = cantidad_visitantes - 1
+                                visitantes.append(visitante)
+                                
+                costo_total, adultos, niños = self.zoologico.revision_visitantes(visitantes=visitantes)
+                
+                print("\nPrecio total a pagar: ", costo_total)
+
+                visita = Visita(guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_visita, cantidad_adultos=adultos,cantidad_niños=niños)
+                
+                self.zoologico.registrar_visita(visita=visita)
 
             elif opcion == "3":
                 print("\nSeleccionaste registrar un animal\n")
@@ -132,59 +169,15 @@ class Menu:
                 mes_nacimiento = int(input("Ingresa el mes de nacimiento del animal: "))
                 año_nacimiento = int(input("Ingresa el año de nacimiento del animal: "))
                 fecha_nacimiento = date(año_nacimiento, mes_nacimiento, dia_nacimiento)
-                
-                
-                ciclo_alimentacion = 0
-                while ciclo_alimentacion < 1 or ciclo_alimentacion >= 4:
-                    ciclo_alimentacion = int(input("Ingresa el tipo de alimentacion del animal: \n1. Herviboro \n2. Carnivoro \n3. Omnivoro \n: "))
-                    
-                    if ciclo_alimentacion == 1:
-                        tipo_alimentacion = Alimentacion.HERVIBORO
-                    elif ciclo_alimentacion == 2:
-                        tipo_alimentacion = Alimentacion.CARNIVORO
-                    elif tipo_alimentacion == 3:
-                        ciclo_alimentacion = Alimentacion.OMNIVORO
-                    else:
-                        print("Opcion invalida. Intenta de nuevo")
-                        
+                tipo_alimentacion = self.zoologico.capturar_tipo_alimentacion()
                 frecuencia_alimentacion = input("Ingresa la frecuencia de alimentacion del animal: ")
+                enfermedades = self.zoologico.capturar_enfermedades()
+                vacunas = self.zoologico.capturar_vacunas()
                 
-                enfermedades = []
-                opcion_enfermedad = 0
-                while opcion_enfermedad <1 or opcion_enfermedad >=3:
-                    cuenta_con_enfermedad = int(input("Ingresa si el animal cuenta con enfermedades: \n1. Si \n2. No \n: "))
-                    if cuenta_con_enfermedad == 1:
-                        opcion_enfermedad = 0
-                        enfermedad = input("Ingresa la enfermedad del animal: ")
-                        enfermedades.append(enfermedad)
-                        while opcion_enfermedad != 2:
-                            opcion_enfermedad = int(input("1. Agregar enfermedad \n2.Terminar \n: "))
-                            if opcion_enfermedad == 1:
-                                enfermedad = input("Ingresa la enfermedad del animal: ")
-                                enfermedades.append(enfermedad)
-                            elif opcion_enfermedad != 2: 
-                                print("Opcion invalida. Intenta de nuevo")
-                                
-                    elif cuenta_con_enfermedad == 2:
-                        break
-                    else:
-                        print("Opcion invalida. Intenta de nuevo")   
-                        
-                vacunado = 0
-                while vacunado <1 or vacunado >=3:
-                    vacunado = int(input("El animal esta vacunado? \n1. Si \n2. No \n: " ))
-                    if vacunado == 1:
-                        vacunas = True
-                    elif vacunado == 2:
-                        vacunas = False
-                    else:
-                        print("Opción inválida. Intenta de nuevo.")
-                id = self.zoologico.generar_id_animal(tipo=tipo, fecha_llegada=fecha_llegada, fecha_nacimiento=fecha_nacimiento)    
-                 
+                id = self.zoologico.generar_id_animal(tipo=tipo, fecha_llegada=fecha_llegada, fecha_nacimiento=fecha_nacimiento) 
+    
                 animal = Animal(id=id, tipo=tipo, fecha_llegada=fecha_llegada, enfermedades=enfermedades, tipo_alimentacion=tipo_alimentacion, fecha_nacimiento=fecha_nacimiento, peso=peso, frecuencia_alimentacion=frecuencia_alimentacion, vacunas=vacunas)
-                
                 self.zoologico.registrar_animal(animal=animal)
-                
                 self.zoologico.mostrar_animales()
  
             elif opcion == "4":
@@ -209,9 +202,45 @@ class Menu:
                         self.zoologico.mostrar_veterinarios()
                     elif consultar == 4:
                         self.zoologico.mostrar_guia()
+                    else: 
+                        print("Opcion no valida. Intente de nuevo")
             elif opcion == "5":
                 self.zoologico.mostrar_visitantes()
+                
             elif opcion == "6":
+                print("*** Registrar proceso ***")
+                
+                tipo_proceso = self.zoologico.seleccion_tipo_proceso()
+                self.zoologico.mostrar_mantenimiento_disponible()
+                if self.zoologico.mostrar_mantenimiento_disponible() == True:
+                    id_encargado = input("Ingresa el ID del empleado a encargarse: ")
+                    empleado_encargado = self.zoologico.validar_id_encargado(id_encargado=id_encargado)
+                    
+                    while empleado_encargado == None:
+                        print("No se ha podido registrar el guia, intenta de nuevo")
+                        id_encargado = input("Ingresa el ID del empleado a encargarse: ")
+                        empleado_encargado = self.zoologico.validar_id_encargado(id_encargado=id_encargado)
+                else:
+                    continue
+                
+                self.zoologico.mostrar_animales()
+                if self.zoologico.mostrar_animales() == True:
+                    id_animal = input("\nIngresa el ID del animal para realizar mantenimiento: ").upper()
+                    id_animal = self.zoologico.validar_id_animal(id_animal=id_animal)
+                    while id_animal == None:
+                        print("No se ha podido registrar el animal, intenta de nuevo")
+                        id_animal = input("\nIngresa el ID del animal para realizar mantenimiento: ").upper()
+                        id_animal = self.zoologico.validar_id_animal(id_animal=id_animal)
+                else:
+                    continue
+                
+                observaciones = self.zoologico.observaciones()
+                fecha_proceso = date.today()
+                proceso = Proceso(empleado_encargado=empleado_encargado, tipo_proceso=tipo_proceso, observaciones=observaciones, fecha_proceso=fecha_proceso, id_animal=id_animal)
+                self.zoologico.registrar_proceso(proceso=proceso)
+  
+            
+            elif opcion == "7":
                 print("\nAdios!!!\n")
                 break
             else:

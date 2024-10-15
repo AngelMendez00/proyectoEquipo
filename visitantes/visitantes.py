@@ -1,6 +1,5 @@
 from datetime import date
 from empleados.empleado import Empleado
-from visitas.visita import Visita
 from random import randint
 
 
@@ -37,5 +36,5 @@ class Visitante:
 
     def mostrar_info_visitante(self):
         nombre_completo = f"{self.nombre} {self.apellidos}"
-        info = f"\n Nombre completo: {nombre_completo}\n Fecha de nacimiento: {self.fecha_nacimiento}\n Curp: {self.curp}\n Número de visitas: {self.numero_visitas}\n Fecha de registro: {self.fecha_registro}"
+        info = f"\n-ID: {self.id}\n-Nombre completo: {nombre_completo}\n-Fecha de nacimiento: {self.fecha_nacimiento}\n-Curp: {self.curp}\n-Número de visitas: {self.numero_visitas}\n-Fecha de registro: {self.fecha_registro}"
         return info
