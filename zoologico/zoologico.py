@@ -102,9 +102,10 @@ class Zoologico:
     
     def mostrar_animales(self):
         print("\n*** ANIMALES EN EL ZOOLOGICO ***")
+        cantidad_animales = 0
         for animal in self.lista_animales: 
-            print(animal.mostrar_info_animal())
             cantidad_animales =+ 1
+            print(animal.mostrar_info_animal())
         if cantidad_animales == 0:
             print("NO HAY ANIMALES A MOSTRAR")
             return False
@@ -226,9 +227,10 @@ class Zoologico:
         for animal in self.lista_animales:
             if id_animal == animal.id:
                return id_animal
-        else:
-            print("El ID es incorrecto") 
+            else:
+                print("El ID es incorrecto") 
         return None
+        
 
     def validar_id_guia(self, id_guia:str):
         for empleado in self.lista_empleados:
@@ -289,6 +291,44 @@ class Zoologico:
                 print("Opcion invalida. Intenta de nuevo")
     
     def observaciones(self):                 
+        registrar_observaciones = 0
+        while registrar_observaciones !=2 :    
+            print("Desea ingresar observaciones?")
+            print("\n1. Si \n2. No")
+            registrar_observaciones = int(input(": "))
+            if registrar_observaciones == 1:
+                observaciones = input("Escribe tus observaciones: ")
+                return observaciones
+            elif registrar_observaciones == 2:
+                observaciones = None
+                return observaciones
+            else:
+                print("Opcion no valida")    
+    
+    def seleccion_tipo_proceso(self):
+        opcion_proceso = 0
+                
+        while opcion_proceso <1 or opcion_proceso >= 4:
+            
+            print("1. Mantenimiento")
+            print("2. Alimentacion")
+            print("3. Limpieza")
+            opcion_proceso = int(input("Selecciona el tipo de proceso a registrar: "))
+            
+            if opcion_proceso == 1:
+                tipo_proceso = TiposProcesos.MANTENIMIENTO
+                return tipo_proceso
+            elif opcion_proceso == 2:
+                tipo_proceso = TiposProcesos.ALIMENTACION
+                return tipo_proceso
+            elif opcion_proceso == 3:
+                tipo_proceso = TiposProcesos.LIMPIEZA
+                return tipo_proceso
+            else:
+                print("Opcion invalida. Intenta de nuevo")
+    
+    def observaciones(self):           
+                    
         registrar_observaciones = 0
         while registrar_observaciones !=2 :    
             print("Desea ingresar observaciones?")
@@ -376,3 +416,62 @@ class Zoologico:
                 return
                 
                             
+    def modificar_animal(self, id_modificar:str):
+        for animal in self.lista_animales:
+            if id_modificar == animal.id:
+                
+                while True:
+                    print("\n1. Tipo de animal \n2. Enfermedades \n3. Tipo de alimentacion \n4. Fecha de nacimiento \n5. Peso \n6. Frecuencia de alimentacion \n7. Vacunas con las que cuenta \n8. Salir") 
+                    opcion = int(input("Ingresa la opcion de lo que desees modificar [No se permite modificar el ID o fecha de llegada (registro) del animal]: "))
+                    if opcion == 1:
+                        animal.tipo = input("Ingresa el nuevo tipo/especie de animal: ")
+                        print("Modificacion realizada con exito")
+                        
+                    elif opcion == 2:
+                        animal.enfermedades = self.capturar_enfermedades()
+                        print("Modificacion realizada con exito")
+                        
+                    elif opcion == 3:
+                        animal.tipo_alimentacion = self.capturar_tipo_alimentacion()
+                        print("Modificacion realizada con exito")
+                        
+                    elif opcion == 4:
+                        dia_nacimiento = int(input("Ingresa el dia de nacimiento del animal: "))
+                        mes_nacimiento = int(input("Ingresa el mes de nacimiento del animal: "))
+                        año_nacimiento = int(input("Ingresa el año de nacimiento del animal: "))
+                        animal.fecha_nacimiento = datetime.date(año_nacimiento, mes_nacimiento, dia_nacimiento)
+                        print("Modificacion realizada con exito")
+
+                    elif opcion == 5:
+                        animal.peso = float(input("Ingresa el peso en kg del animal: "))
+                        print("Modificacion realizada con exito")
+                    
+                    elif opcion == 6:
+                        animal.frecuencia_alimentacion = input("Ingresa la frecuencia de alimentacion del animal: ")
+                        print("Modificacion realizada con exito")
+                       
+                    elif opcion == 7:
+                        animal.vacunas = self.capturar_vacunas()
+                        print("Modificacion realizada con exito")
+                    elif opcion == 8:
+                        print("Saliste de modificaciones de animal")
+                        break
+                    else:
+                        print("Opcion no valida. Intente de nuevo")
+                return       
+        print("ID no encontrado")
+        
+                
+    def eliminar_animal(self, id_eliminar: str):
+    
+        for animal in self.lista_animales:
+            if animal.id == id_eliminar:
+                for proceso in self.lista_procesos:
+                    if proceso.id_animal == animal.id:
+                        print("No se puede eliminar el animal debido a que está asociado con un proceso")
+                        return
+                self.lista_animales.remove(animal)
+                print("Animal eliminado con éxito")
+                return
+        print("No se ha encontrado el ID del animal")
+        
