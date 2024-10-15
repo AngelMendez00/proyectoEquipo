@@ -8,6 +8,7 @@ from datetime import time
 from datetime import date
 from empleados.utils.rol import Rol
 from animales.animal import Animal
+from director.director import Director
 from random import randint
 from animales.utils.alimentacion import Alimentacion
 from procesos.proceso import Proceso
@@ -20,10 +21,13 @@ class Zoologico:
     lista_visitantes: List[Visitante]=[]
     lista_visitas: List[Visita]=[]
     lista_procesos: List[Proceso]=[]
+    director:Director
+    
 
     def __init__(self):
-        director=Empleado("Juan", "Gonzalez", date(2003, 10, 16), date(2020, 12, 12), "JUANO777", "JUSP20031016", 2000.00, time(8,30), Rol.DIRECTOR)
-        self.lista_empleados.append(director)
+        director=Director(id="NACO777", nombre="Vangelis", apellidos="Contreras", fecha_nacimiento=date(2004, 1, 23), curp="VCOM0104123HMNNLLA1", contraseña="105")
+        self.director=director
+        self.lista_usuario.append(director)
 
     def registrar_visitante(self, visitante: Visitante):
         self.lista_visitantes.append(visitante)
@@ -235,45 +239,9 @@ class Zoologico:
                     print("El empleado no es de mantenimiento")
          
         print("ID no encontrada")
-        return None
 
-    def seleccion_tipo_proceso(self):
-        opcion_proceso = 0
-                
-        while opcion_proceso <1 or opcion_proceso >= 4:
-            
-            print("1. Mantenimiento")
-            print("2. Alimentacion")
-            print("3. Limpieza")
-            opcion_proceso = int(input("Selecciona el tipo de proceso a registrar: "))
-            
-            if opcion_proceso == 1:
-                tipo_proceso = TiposProcesos.MANTENIMIENTO
-                return tipo_proceso
-            elif opcion_proceso == 2:
-                tipo_proceso = TiposProcesos.ALIMENTACION
-                return tipo_proceso
-            elif opcion_proceso == 3:
-                tipo_proceso = TiposProcesos.LIMPIEZA
-                return tipo_proceso
-            else:
-                print("Opcion invalida. Intenta de nuevo")
-    
-    def observaciones(self):           
-                    
-        registrar_observaciones = 0
-        while registrar_observaciones !=2 :    
-            print("Desea ingresar observaciones?")
-            print("\n1. Si \n2. No")
-            registrar_observaciones = int(input(": "))
-            if registrar_observaciones == 1:
-                observaciones = input("Escribe tus observaciones: ")
-                return observaciones
-            elif registrar_observaciones == 2:
-                observaciones = None
-                return observaciones
-            else:
-                print("Opcion no valida")
+
+
 
 
 
