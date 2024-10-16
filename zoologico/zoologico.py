@@ -111,16 +111,47 @@ class Zoologico:
             return False
         else:
             return True
-        
-
     
     def generar_id_animal(self, tipo, fecha_llegada, fecha_nacimiento):
         id = f"AN{tipo[:2].upper()}{str(fecha_llegada.year)[-2:]}{str(fecha_llegada.month)}{randint(1, 10000)}{datetime.now().day}{str(fecha_nacimiento.year)[-2:]}"
         for animal in self.lista_animales:
             while id == animal.id:
-                print("El id estaba duplicado, generando nuevo...")
+                print("El ID estaba duplicado, generando nuevo...")
                 id = f"AN{tipo[:2].upper()}{str(fecha_llegada.year)[-2:]}{str(fecha_llegada.month)}{randint(1, 10000)}{datetime.now().day}{str(fecha_nacimiento.year)[-2:]}"
         return id
+    
+    def generar_id_empleado(self, nombre: str, rol: Rol, fecha_inicio: date, rfc:str):
+        iniciales_nombre=nombre[0:3].upper()
+        id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2]}"
+        for empleado in self.lista_empleados:
+            while id == empleado.id:
+                print("El ID estaba duplicado, generando nuevo... ")
+                iniciales_nombre=nombre[0:3].upper()
+                id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2]}"
+        return id
+    
+    def generar_id_visitante(self, nombre: str, apellidos: str, fecha_nacimiento:date, fecha_registro:date):
+        iniciales_nombre=nombre[:2].upper()
+        iniciales_apellidos=apellidos[:2].upper()
+        id=f"{iniciales_nombre}{iniciales_apellidos}{randint(0, 10000)}{str(fecha_nacimiento.year)[-2:]}{str(fecha_registro.year)[-2:]}"
+        for visitante in self.lista_visitantes:
+            while id == visitante.id:
+                print("El ID estaba duplicado, generando nuevo...")
+                iniciales_nombre=nombre[:2].upper()
+                iniciales_apellidos=apellidos[:2].upper()
+                id=f"{iniciales_nombre}{iniciales_apellidos}{randint(0, 10000)}{str(fecha_nacimiento.year)[-2:]}{str(fecha_registro.year)[-2:]}"
+        return id
+    
+    def generar_id_visita (self, guia_a_cargo: Empleado, fecha_visita:date):
+        nombre = guia_a_cargo.nombre
+        id = f"{nombre[:2].upper()}{randint(0,10000)}{str(fecha_visita.year)[-2:]}{randint(0,10000)}"
+        for visita in self.lista_visitas:
+            while id == visita.id:
+                print(" El ID estaba duplicado, generando nuevo...")
+                nombre = guia_a_cargo.nombre
+                id = f"{nombre[:2].upper()}{randint(0,10000)}{str(fecha_visita.year)[-2:]}{randint(0,10000)}"
+        return id
+
     
     def mostrar_procesos(self):    
         print("\n--- Procesos realizados ---")
