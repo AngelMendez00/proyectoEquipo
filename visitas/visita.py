@@ -37,10 +37,20 @@ class Visita:
         info = f"""
                 ID de visita: {self.id}
                 ID del guia a cargo: {self.guia_a_cargo.id} 
-                Nombre de guia a cargo: {self.guia_a_cargo.nombre}
+                Nombre de guia a cargo: {self.guia_a_cargo.nombre} {self.guia_a_cargo.apellidos}
                 Fecha de realizacion de la visita: {self.fecha_visita}
                 Costo total de visita: {self.costo_total}
                 Cantidad de adultos: {self.cantidad_adultos}
                 Cantidad de niños: {self.cantidad_niños}
                 """
         return info
+    
+    def mostrar_visitantes(self):
+        i=0
+        print("\n---Visitantes---\n")
+        for visitante in self.visitantes:
+            i = i+1
+            print("Visitante ", i)
+            print("-ID: ", visitante.id)
+            print("-Nombre: ", visitante.nombre, visitante.apellidos, "\n")
+            

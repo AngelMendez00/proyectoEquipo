@@ -125,6 +125,7 @@ class Zoologico:
         print("\n--- Visitas realizadas ---")
         for visita in self.lista_visitas:
             print(visita.mostrar_info_visita())
+            visita.mostrar_visitantes()
            
     def mostrar_veterinarios(self):
         print("\n---VETERINARIOS---\n")
@@ -173,7 +174,7 @@ class Zoologico:
 
     def mostrar_guia_disponibles(self):
         disponibilidad = 0
-        print("\n---GUIAS DISPONIBLES---\n")
+        print("\n---GUIAS DISPONIBLES---")
         for empleado in self.lista_empleados:
             if empleado.rol == Rol.GUIA:
                 if empleado.disponible == True:
@@ -264,7 +265,6 @@ class Zoologico:
 
     def verificar_id_y_contraseña(self, id_ingresada: str, contraseña_ingresada: str):
         if contraseña_ingresada == self.director.contraseña and id_ingresada == self.director.id:
-            print("Inicio de sesión correcta")
             return True
         return False
     
@@ -474,4 +474,7 @@ class Zoologico:
                 print("Animal eliminado con éxito")
                 return
         print("No se ha encontrado el ID del animal")
+    
+    def eliminar_empleado(self, id_empleado: str):
+        pass
         
