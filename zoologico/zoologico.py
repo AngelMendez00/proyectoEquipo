@@ -474,4 +474,11 @@ class Zoologico:
                 print("Animal eliminado con éxito")
                 return
         print("No se ha encontrado el ID del animal")
+
+    def eliminar_visitante(self, id: str):
+        for visitante in self.lista_visitantes:
+            if visitante.id == id:
+                self.lista_visitantes.remove(visitante)
+                print("Visitante eliminado")
+                return
         
