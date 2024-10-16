@@ -476,7 +476,28 @@ class Zoologico:
         print("No se ha encontrado el ID del animal")
     
     def eliminar_empleado(self, id_empleado: str):
-        pass
+        for empleado in self.lista_empleados:
+            if id_empleado == empleado.id:
+                if empleado.rol == Rol.GUIA:
+                    for visita in self.lista_visitas:
+                        if visita.guia_a_cargo.id == id_empleado:
+                            print("\nNo se puede eliminar el empleado debido a que esta asociado a una visita")
+                            return
+                        else:
+                            self.lista_empleados.remove(empleado)
+                            print("\nEmpleado eliminado")
+
+                elif empleado.rol == Rol.MANTENIMIENTO:
+                    for proceso in self.lista_procesos:
+                        if proceso.empleado_encargado.id == id_empleado:
+                            print("No se puede elimianr el empleado debido a que tiene un proceso asociado")
+                            return
+                        else:
+                            self.lista_empleados.remove(empleado)
+                            print("\nEmpleado eliminado")
+                else:
+                    self.lista_empleados.remove(empleado)
+                    print("\nEmpleado eliminado")
 
     def eliminar_visitante(self, id: str):
         for visitante in self.lista_visitantes:

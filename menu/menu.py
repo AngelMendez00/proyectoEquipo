@@ -292,6 +292,7 @@ class Menu:
                 self.zoologico.eliminar_animal(id_eliminar=id_eliminar)
 
             elif opcion == "14":
+                id=None
                 print("\nSeleccionaste eliminar empleado\n")
 
                 if self.zoologico.comprobrar_existencia_empleados() == True:
@@ -308,6 +309,8 @@ class Menu:
                 else:
                     continue
                 
+                self.zoologico.eliminar_empleado(id_empleado=id)
+
             elif opcion == "15":
                 print("\n Selecionaste la opción de eliminar visitante")
 
