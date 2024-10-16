@@ -26,7 +26,7 @@ class Visitante:
         self.curp = curp
         self.numero_visitas = numero_visitas
         self.fecha_registro = fecha_registro
-        self.id = self.generar_id(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, fecha_registro=fecha_registro)
+        self.id = id
 
     def generar_id(self, nombre: str, apellidos: str, fecha_nacimiento:date, fecha_registro:date):
         iniciales_nombre=nombre[:2].upper()

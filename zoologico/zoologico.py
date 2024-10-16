@@ -4,7 +4,6 @@ from visitas.visita import Visita
 from usuarios.usuario import Usuario
 from typing import List
 from datetime import datetime
-from datetime import time
 from datetime import date
 from empleados.utils.rol import Rol
 from animales.animal import Animal
