@@ -30,7 +30,7 @@ class Menu:
         print("Máximos intentos de inicio de sesión alcanzados. Adiós\n")
         
     def mostrar_intento_sesion_fallido(self, intentos_usuario):
-        print("\nContraseña incorrecta. Intenta de nuevo\n")
+        print("\nID o contraseña incorrectos. Intenta de nuevo\n")
         return intentos_usuario + 1
     
     def mostrar_menu(self):
@@ -45,13 +45,14 @@ class Menu:
             print("6. Consultar empleados")
             print("7. Consultar animales")
             print("8. Consultar procesos")
-            print("9. Modificar animales")
-            print("10. Modificar empleado")
-            print("11. Modificar visitantes")
-            print("12. Eliminar animales")
-            print("13. Eliminar empleados")
-            print("13. Eliminar visitantes")
-            print("15. Salir")
+            print("9. Consultar visita")
+            print("10. Modificar animales")
+            print("11. Modificar empleado")
+            print("12. Modificar visitantes")
+            print("13. Eliminar animales")
+            print("14. Eliminar empleados")
+            print("15. Eliminar visitantes")
+            print("16. Salir")
             
             opcion=input("Opcion: ")
 
@@ -251,12 +252,15 @@ class Menu:
                 self.zoologico.mostrar_procesos()
 
             elif opcion == "9":
+                self.zoologico.mostrar_visitas()
+            
+            elif opcion == "10":
                 print("*** MODIFICAR ANIMALES ***")
                 self.zoologico.mostrar_animales()
                 id_modificar = input("Ingresa el ID del animal a modificar: ")
                 self.zoologico.modificar_animal(id_modificar=id_modificar)
             
-            elif opcion == "10":
+            elif opcion == "11":
                 id=None
                 print("\nSeleccionaste modifcar empleado\n")
 
@@ -276,26 +280,42 @@ class Menu:
 
                 self.zoologico.modificar_empleado(id_empleado=id)
             
-            elif opcion == "11":
-                pass
+            elif opcion == "12":
+                print("\nSeleccionaste modificar visitante\n")
 
-            elif opcion =="12":
+                
+
+            elif opcion =="13":
                 print("*** ELIMINAR ANIMALES ***")
                 self.zoologico.mostrar_animales()
                 id_eliminar = input("Ingresa el ID del animal a eliminar: ")
                 self.zoologico.eliminar_animal(id_eliminar=id_eliminar)
 
-            elif opcion == "13":
+            elif opcion == "14":
+                print("\nSeleccionaste eliminar empleado\n")
+
+                if self.zoologico.comprobrar_existencia_empleados() == True:
+
+                    print("Lista de empleados registrados: \n")
+                    self.zoologico.mostrar_administracion()
+                    self.zoologico.mostrar_mantenimiento()
+                    self.zoologico.mostrar_veterinarios()
+                    self.zoologico.mostrar_guia()
+
+                    while id==None:
+                        id=input("Ingrese el ID del empleado a eliminar: ")
+                        id=self.zoologico.validar_id_empleado(id)
+                else:
+                    continue
+                
+            elif opcion == "15":
                 print("\n Selecionaste la opción de eliminar visitante")
 
                 id = input("Ingrese el ID del visitante: ")
 
                 self.zoologico.eliminar_visitante(id=id)
-
-            elif opcion == "14":
-                pass
             
-            elif opcion == "15":
+            elif opcion == "16":
                 print("\nAdios!!!\n")
                 break
 
