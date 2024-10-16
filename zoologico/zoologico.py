@@ -111,9 +111,15 @@ class Zoologico:
             return False
         else:
             return True
+        
+
     
     def generar_id_animal(self, tipo, fecha_llegada, fecha_nacimiento):
         id = f"AN{tipo[:2].upper()}{str(fecha_llegada.year)[-2:]}{str(fecha_llegada.month)}{randint(1, 10000)}{datetime.now().day}{str(fecha_nacimiento.year)[-2:]}"
+        for animal in self.lista_animales:
+            while id == animal.id:
+                print("El id estaba duplicado, generando nuevo...")
+                id = f"AN{tipo[:2].upper()}{str(fecha_llegada.year)[-2:]}{str(fecha_llegada.month)}{randint(1, 10000)}{datetime.now().day}{str(fecha_nacimiento.year)[-2:]}"
         return id
     
     def mostrar_procesos(self):    

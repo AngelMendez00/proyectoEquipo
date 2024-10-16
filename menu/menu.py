@@ -180,7 +180,7 @@ class Menu:
                 enfermedades = self.zoologico.capturar_enfermedades()
                 vacunas = self.zoologico.capturar_vacunas()
                 
-                id = self.zoologico.generar_id_animal(tipo=tipo, fecha_llegada=fecha_llegada, fecha_nacimiento=fecha_nacimiento) 
+                id = self.zoologico.generar_id_animal(tipo=tipo, fecha_nacimiento=fecha_nacimiento) 
     
                 animal = Animal(id=id, tipo=tipo, fecha_llegada=fecha_llegada, enfermedades=enfermedades, tipo_alimentacion=tipo_alimentacion, fecha_nacimiento=fecha_nacimiento, peso=peso, frecuencia_alimentacion=frecuencia_alimentacion, vacunas=vacunas)
                 self.zoologico.registrar_animal(animal=animal)
