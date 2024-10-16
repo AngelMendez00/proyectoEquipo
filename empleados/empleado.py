@@ -14,7 +14,7 @@ class Empleado(Usuario):
     disponible: bool
 
     def __init__(self, nombre: str, apellidos: str, fecha_nacimiento: date, fecha_inicio: date, rfc: str, curp: str, salario: float, horario: str, rol: Rol):
-        super().__init__(id=self.generar_id(nombre=nombre,rol=rol), nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp)
+        super().__init__(id=self.generar_id(nombre=nombre,rol=rol, fecha_inicio=fecha_inicio, rfc=rfc), nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp)
         self.fecha_inicio = fecha_inicio
         self.rfc = rfc
         self.salario = salario
@@ -22,9 +22,9 @@ class Empleado(Usuario):
         self.rol = rol
         self.disponible = True
 
-    def generar_id(self, nombre: str, rol: Rol):
+    def generar_id(self, nombre: str, rol: Rol, fecha_inicio: date, rfc:str):
         iniciales_nombre=nombre[0:3].upper()
-        id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}"
+        id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2]}"
         return id
 
     def mostrar_info(self):

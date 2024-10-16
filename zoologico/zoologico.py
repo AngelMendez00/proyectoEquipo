@@ -125,6 +125,7 @@ class Zoologico:
         print("\n--- Visitas realizadas ---")
         for visita in self.lista_visitas:
             print(visita.mostrar_info_visita())
+            visita.mostrar_visitantes()
            
     def mostrar_veterinarios(self):
         print("\n---VETERINARIOS---\n")
@@ -173,7 +174,7 @@ class Zoologico:
 
     def mostrar_guia_disponibles(self):
         disponibilidad = 0
-        print("\n---GUIAS DISPONIBLES---\n")
+        print("\n---GUIAS DISPONIBLES---")
         for empleado in self.lista_empleados:
             if empleado.rol == Rol.GUIA:
                 if empleado.disponible == True:
@@ -264,7 +265,6 @@ class Zoologico:
 
     def verificar_id_y_contraseña(self, id_ingresada: str, contraseña_ingresada: str):
         if contraseña_ingresada == self.director.contraseña and id_ingresada == self.director.id:
-            print("Inicio de sesión correcta")
             return True
         return False
     
@@ -474,6 +474,30 @@ class Zoologico:
                 print("Animal eliminado con éxito")
                 return
         print("No se ha encontrado el ID del animal")
+    
+    def eliminar_empleado(self, id_empleado: str):
+        for empleado in self.lista_empleados:
+            if id_empleado == empleado.id:
+                if empleado.rol == Rol.GUIA:
+                    for visita in self.lista_visitas:
+                        if visita.guia_a_cargo.id == id_empleado:
+                            print("\nNo se puede eliminar el empleado debido a que esta asociado a una visita")
+                            return
+                        else:
+                            self.lista_empleados.remove(empleado)
+                            print("\nEmpleado eliminado")
+
+                elif empleado.rol == Rol.MANTENIMIENTO:
+                    for proceso in self.lista_procesos:
+                        if proceso.empleado_encargado.id == id_empleado:
+                            print("No se puede elimianr el empleado debido a que tiene un proceso asociado")
+                            return
+                        else:
+                            self.lista_empleados.remove(empleado)
+                            print("\nEmpleado eliminado")
+                else:
+                    self.lista_empleados.remove(empleado)
+                    print("\nEmpleado eliminado")
 
     def eliminar_visitante(self, id: str):
         for visitante in self.lista_visitantes:
@@ -482,3 +506,28 @@ class Zoologico:
                 print("Visitante eliminado")
                 return
         
+    def modificar_visitante(self, id_modificar:str):
+        for visitante in self.lista_visitantes:
+            if visitante.id == id_modificar:
+                while True:
+                    print("\n1. Nombre \n2. Apellidos \n3. Fecha de nacimiento \n3. CURP \n4. Salir") 
+                    opcion = int(input("Ingresa la opcion de lo que desees modificar [No se permite modificar el ID, numero de visitas ni fechas de registro o nacimiento]: "))
+                    
+                    if opcion == 1:
+                        visitante.nombre = input("Ingresa el nombre del visitante: ")
+                        print("Modificacion realizada con exito")
+                    elif opcion == 2:
+                        visitante.apellidos = input("Ingresa los apellidos del visitante: ")
+                        print("Modificacion realizada con exito")
+                    elif opcion == 3:
+                        visitante.curp = input("Ingresa la CURP: ")
+                        print("Modificacion realizada con exito")
+                    elif opcion == 4:
+                        print("Saliste de modificaciones del visitante")    
+                        break
+                    else: 
+                        print("Opcion no válida. Intenta de nuevo")
+                return
+        print("ID no encontrado")        
+                    
+                    
