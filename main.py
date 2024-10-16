@@ -5,6 +5,3 @@ menu.login()
 #menu.mostrar_menu()
 
 #No id duplicados
-#modificar visitantes
-#eliminar empleados
-#eliminar visitantes
