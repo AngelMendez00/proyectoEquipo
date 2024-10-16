@@ -506,3 +506,28 @@ class Zoologico:
                 print("Visitante eliminado")
                 return
         
+    def modificar_visitante(self, id_modificar:str):
+        for visitante in self.lista_visitantes:
+            if visitante.id == id_modificar:
+                while True:
+                    print("\n1. Nombre \n2. Apellidos \n3. Fecha de nacimiento \n3. CURP \n4. Salir") 
+                    opcion = int(input("Ingresa la opcion de lo que desees modificar [No se permite modificar el ID, numero de visitas ni fechas de registro o nacimiento]: "))
+                    
+                    if opcion == 1:
+                        visitante.nombre = input("Ingresa el nombre del visitante: ")
+                        print("Modificacion realizada con exito")
+                    elif opcion == 2:
+                        visitante.apellidos = input("Ingresa los apellidos del visitante: ")
+                        print("Modificacion realizada con exito")
+                    elif opcion == 3:
+                        visitante.curp = input("Ingresa la CURP: ")
+                        print("Modificacion realizada con exito")
+                    elif opcion == 4:
+                        print("Saliste de modificaciones del visitante")    
+                        break
+                    else: 
+                        print("Opcion no válida. Intenta de nuevo")
+                return
+        print("ID no encontrado")        
+                    
+                    
