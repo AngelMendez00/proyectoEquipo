@@ -13,7 +13,7 @@ class Visitante:
     numero_visitas: int
     fecha_registro: date
 
-    def __init__(self, 
+    def __init__(self, id:str,
                  nombre: str, 
                  apellidos: str, 
                  fecha_nacimiento: date, 
@@ -27,12 +27,6 @@ class Visitante:
         self.numero_visitas = numero_visitas
         self.fecha_registro = fecha_registro
         self.id = id
-
-    def generar_id(self, nombre: str, apellidos: str, fecha_nacimiento:date, fecha_registro:date):
-        iniciales_nombre=nombre[:2].upper()
-        iniciales_apellidos=apellidos[:2].upper()
-        id=f"{iniciales_nombre}{iniciales_apellidos}{randint(0, 10000)}{str(fecha_nacimiento.year)[-2:]}{str(fecha_registro.year)[-2:]}"
-        return id
 
     def mostrar_info_visitante(self):
         nombre_completo = f"{self.nombre} {self.apellidos}"

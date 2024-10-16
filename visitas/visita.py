@@ -13,14 +13,14 @@ class Visita:
     cantidad_adultos: int
     cantidad_niños: int
 
-    def __init__(self, 
+    def __init__(self, id:str,
                  guia_a_cargo: Empleado, 
                  costo_total: float,
                  visitantes: List[Visitante],
                  fecha_visita: date,
                  cantidad_adultos: int,
                  cantidad_niños: int):
-        self.id = self.generar_id_visita(guia_a_cargo=guia_a_cargo, fecha_visita=fecha_visita)
+        self.id = id
         self.guia_a_cargo = guia_a_cargo
         self.costo_total = costo_total
         self.visitantes = visitantes
@@ -28,11 +28,7 @@ class Visita:
         self.cantidad_adultos = cantidad_adultos
         self.cantidad_niños = cantidad_niños
 
-    def generar_id_visita (self, guia_a_cargo: Empleado, fecha_visita:date):
-        nombre = guia_a_cargo.nombre
-        id = f"{nombre[:2].upper()}{randint(0,10000)}{str(fecha_visita.year)[-2:]}{randint(0,10000)}"
-        return id
-
+    
     def mostrar_info_visita(self):
         info = f"""
                 ID de visita: {self.id}
