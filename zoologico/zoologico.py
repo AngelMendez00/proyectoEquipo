@@ -477,4 +477,11 @@ class Zoologico:
     
     def eliminar_empleado(self, id_empleado: str):
         pass
+
+    def eliminar_visitante(self, id: str):
+        for visitante in self.lista_visitantes:
+            if visitante.id == id:
+                self.lista_visitantes.remove(visitante)
+                print("Visitante eliminado")
+                return
         

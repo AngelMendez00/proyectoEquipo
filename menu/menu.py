@@ -308,10 +308,12 @@ class Menu:
                 else:
                     continue
                 
-
-                    
             elif opcion == "15":
-                pass
+                print("\n Selecionaste la opción de eliminar visitante")
+
+                id = input("Ingrese el ID del visitante: ")
+
+                self.zoologico.eliminar_visitante(id=id)
             
             elif opcion == "16":
                 print("\nAdios!!!\n")
