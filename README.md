@@ -1,1 +1,1 @@
-# Programacion equipo
+# Proyecto Equipo
