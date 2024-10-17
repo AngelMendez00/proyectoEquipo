@@ -288,9 +288,10 @@ class Menu:
                 self.zoologico.modificar_empleado(id_empleado=id)
             
             elif opcion == "12":
-                print("\nSeleccionaste modificar visitante\n")
-
-                
+                print("\n*** MODIFICAR VISITANTE ***\n")
+                self.zoologico.mostrar_visitantes()
+                id_modificar = input("Ingresa el ID del visitante a modificar: ")
+                self.zoologico.modificar_visitante(id_modificar=id_modificar)
 
             elif opcion =="13":
                 print("*** ELIMINAR ANIMALES ***")
