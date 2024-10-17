@@ -14,8 +14,7 @@ class Empleado(Usuario):
     disponible: bool
 
     def __init__(self, id: str, nombre: str, apellidos: str, fecha_nacimiento: date, fecha_inicio: date, rfc: str, curp: str, salario: float, horario: str, rol: Rol):
-        super().__init__(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp)
-        self.id = id
+        super().__init__(id=id, nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp)
         self.fecha_inicio = fecha_inicio
         self.rfc = rfc
         self.salario = salario

@@ -99,8 +99,10 @@ class Menu:
                 fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
                 fecha_inicio=date(año_incio, mes_inicio, dia_inico)
                 horario=f"{hora_entrada} a {hora_salida}"
+                id=self.zoologico.generar_id_empleado(nombre=nombre, rol=rol, fecha_inicio=fecha_inicio, rfc=rfc)
 
-                empleado=Empleado(nombre=nombre,
+                empleado=Empleado(id=id,
+                                        nombre=nombre,
                                         apellidos=apellidos,
                                         fecha_nacimiento=fecha_nacimiento,
                                         fecha_inicio=fecha_inicio,
@@ -142,7 +144,10 @@ class Menu:
                         numero_visitas=0
                         fecha_registro=datetime.today()
                         fecha_nacimiento=date(año_nacimiento, mes_nacimiento, dia_nacimiento)
-                        visitante=Visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
+                        id=self.zoologico.generar_id_visitante(nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, fecha_registro=fecha_registro)
+
+
+                        visitante=Visitante(id=id, nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp, numero_visitas=numero_visitas, fecha_registro=fecha_registro)
                         visitante.numero_visitas = visitante.numero_visitas + 1
                         self.zoologico.registrar_visitante(visitante=visitante)
                         
@@ -162,7 +167,9 @@ class Menu:
                 
                 print("\nPrecio total a pagar: ", costo_total)
 
-                visita = Visita(guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_visita, cantidad_adultos=adultos,cantidad_niños=niños)
+                id=self.zoologico.generar_id_visita(guia_a_cargo=guia, fecha_visita=fecha_visita)
+
+                visita = Visita(id=id, guia_a_cargo=guia, costo_total=costo_total, visitantes=visitantes, fecha_visita=fecha_visita, cantidad_adultos=adultos,cantidad_niños=niños)
                 
                 self.zoologico.registrar_visita(visita=visita)
 
@@ -312,7 +319,7 @@ class Menu:
                 self.zoologico.eliminar_empleado(id_empleado=id)
 
             elif opcion == "15":
-                print("\n Selecionaste la opción de eliminar visitante")
+                print("\nSelecionaste la opción de eliminar visitante")
 
                 id = input("Ingrese el ID del visitante: ")
 

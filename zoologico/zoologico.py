@@ -121,12 +121,12 @@ class Zoologico:
     
     def generar_id_empleado(self, nombre: str, rol: Rol, fecha_inicio: date, rfc:str):
         iniciales_nombre=nombre[0:3].upper()
-        id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2]}"
+        id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2].upper()}"
         for empleado in self.lista_empleados:
             while id == empleado.id:
                 print("El ID estaba duplicado, generando nuevo... ")
                 iniciales_nombre=nombre[0:3].upper()
-                id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2]}"
+                id=f"{iniciales_nombre}{str(rol.value)[:2].upper()}{randint(0,5000)}{str(fecha_inicio.year)[-2:]}{rfc[:2].upper()}"
         return id
     
     def generar_id_visitante(self, nombre: str, apellidos: str, fecha_nacimiento:date, fecha_registro:date):
@@ -536,11 +536,12 @@ class Zoologico:
                     print("\nEmpleado eliminado")
 
     def eliminar_visitante(self, id: str):
-        for visitante in self.lista_visitantes:
-            if visitante.id == id:
-                self.lista_visitantes.remove(visitante)
-                print("Visitante eliminado")
-                return
+        for visita in self.lista_visitas:
+            for visitante in visita.visitantes:
+                if id == visitante.id:
+                    print("\nNo es posible eliminar el visiante porque ya tiene una visita asociada\n")
+                    return
+        self.lista_visitantes.remove(visitante)
         
     def modificar_visitante(self, id_modificar:str):
         for visitante in self.lista_visitantes:

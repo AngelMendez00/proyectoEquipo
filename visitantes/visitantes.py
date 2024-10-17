@@ -1,10 +1,10 @@
 from datetime import date
-from empleados.empleado import Empleado
 from random import randint
+from usuarios.usuario import Usuario
 
 
 
-class Visitante:
+class Visitante(Usuario):
     id: str
     nombre: str
     apellidos: str
@@ -20,13 +20,10 @@ class Visitante:
                  curp: str, 
                  numero_visitas: int, 
                  fecha_registro: date):
-        self.nombre = nombre
-        self.apellidos = apellidos
-        self.fecha_nacimiento = fecha_nacimiento
-        self.curp = curp
+        super().__init__(id=id, nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento, curp=curp)
         self.numero_visitas = numero_visitas
         self.fecha_registro = fecha_registro
-        self.id = id
+
 
     def mostrar_info_visitante(self):
         nombre_completo = f"{self.nombre} {self.apellidos}"
