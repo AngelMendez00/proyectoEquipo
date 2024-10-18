@@ -539,7 +539,6 @@ class Zoologico:
                 if id == visitante.id:
                     print("\nNo es posible eliminar el visiante porque ya tiene una visita asociada\n")
                     return
-        self.lista_visitantes.remove(visitante)
         
     def modificar_visitante(self, id_modificar:str):
         for visitante in self.lista_visitantes:

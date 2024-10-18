@@ -321,8 +321,10 @@ class Menu:
                 self.zoologico.eliminar_empleado(id_empleado=id)
 
             elif opcion == "15":
+                
                 print("\nSelecionaste la opción de eliminar visitante")
                 self.zoologico.mostrar_visitantes()
+                
                 id = input("\nIngrese el ID del visitante a eliminar: ")
 
                 self.zoologico.eliminar_visitante(id=id)
